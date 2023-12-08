@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/button">
+        <file>icon/play.png</file>
+        <file>icon/pause.png</file>
+        <file>icon/ahead.png</file>
+        <file>icon/back.png</file>
+        <file>icon/fullScreen.png</file>
+        <file>icon/select.png</file>
+        <file>icon/speed.png</file>
+        <file>icon/voice.png</file>
+        <file>icon/novoice.png</file>
+    </qresource>
+</RCC>
