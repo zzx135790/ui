@@ -7,7 +7,9 @@
         <file>icon/fullScreen.png</file>
         <file>icon/select.png</file>
         <file>icon/speed.png</file>
-        <file>icon/voice.png</file>
+        <file>icon/high_voice.png</file>
+        <file>icon/mid_voice.png</file>
+        <file>icon/low_voice.png</file>
         <file>icon/novoice.png</file>
     </qresource>
 </RCC>

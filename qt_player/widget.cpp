@@ -50,20 +50,21 @@ Widget::Widget(QWidget *parent): QWidget(parent), voice_data(50),
 void Widget::Init()
 {
     voice_button = new QPushButton();
-    ButtonStyleSet(voice_button, ":/button/icon/voice.png");
+    ButtonStyleSet(voice_button, ":/button/icon/mid_voice.png");
+
     voice_slider = new QSlider(Qt::Horizontal);
-    voice_slider->setValue(50);
     voice_slider->setRange(0, 100);
+    voice_slider->setValue(50);
 
     speed_button = new QPushButton();
     ButtonStyleSet(speed_button, ":/button/icon/speed.png");
+
     speed_label = new QLabel();
     speed_slider = new QSlider(Qt::Horizontal);
     speed_slider->setRange(0, 8);
     speed_slider->setTickInterval(1);
     speed_slider->setValue(4);
     speed_label->setText(QString::number(4.0 * 2.0 / 8.0, 'g', 3) + QString("倍速"));
-
 
     paly_button = new QPushButton();
     ButtonStyleSet(paly_button, ":/button/icon/play.png");

@@ -16,21 +16,48 @@ void Widget::voiceclick()
     else if(i == 0)
     {
         audioOutput->setVolume(voice_data);
-        ButtonStyleSet(voice_button, ":/button/icon/voice.png");
+        int voice = voice_data;
+        if(voice == 0)
+        {
+            ButtonStyleSet(voice_button, ":/button/icon/novoice.png");
+        }
+        else if (voice<=33)
+        {
+            ButtonStyleSet(voice_button, ":/button/icon/low_voice.png");
+        }
+        else if (voice<=66)
+        {
+            ButtonStyleSet(voice_button, ":/button/icon/mid_voice.png");
+        }
+        else
+        {
+            ButtonStyleSet(voice_button, ":/button/icon/high_voice.png");
+        }
     }
 
 }
 
 void Widget::voicechange(int voice)
 {
-    audioOutput->setVolume(voice);
+    float value = 0.01 * voice;
+    audioOutput->setVolume(value);
+    voice_data = voice;
+
     if(voice == 0)
     {
         ButtonStyleSet(voice_button, ":/button/icon/novoice.png");
     }
+    else if (voice<=33)
+    {
+        ButtonStyleSet(voice_button, ":/button/icon/low_voice.png");
+    }
+    else if (voice<=66)
+    {
+        ButtonStyleSet(voice_button, ":/button/icon/mid_voice.png");
+    }
     else
     {
-        ButtonStyleSet(voice_button, ":/button/icon/voice.png");
+        ButtonStyleSet(voice_button, ":/button/icon/high_voice.png");
     }
 }
 
@@ -104,6 +131,7 @@ void Widget::SetResource()
     QUrl url = QUrl::fromLocalFile(resource);
     multiPlayer->setSource(url);
     multiPlayer->play();
+//    connect(player, SIGNAL(positionChanged(qint64)), this, SLOT(VideoPosChange(qint64)));
 }
 
 void Widget::SpeedChange(int value)
