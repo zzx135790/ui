@@ -116,7 +116,7 @@ void Widget::VideoPosChange(qint64 position)
     {
         return;
     }
-    qDebug()<< multiPlayer->source();
+//    qDebug()<< multiPlayer->source();
     player_slider->setSliderPosition(100 * position / multiPlayer->duration());
 
     QTime currentTime(0, 0, 0, 0);
@@ -131,7 +131,7 @@ void Widget::SetResource()
     QUrl url = QUrl::fromLocalFile(resource);
     multiPlayer->setSource(url);
     multiPlayer->play();
-//    connect(player, SIGNAL(positionChanged(qint64)), this, SLOT(VideoPosChange(qint64)));
+    connect(multiPlayer, SIGNAL(positionChanged(qint64)), this, SLOT(VideoPosChange(qint64)));
 }
 
 void Widget::SpeedChange(int value)
