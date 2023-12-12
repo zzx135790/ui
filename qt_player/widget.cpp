@@ -55,16 +55,20 @@ void Widget::Init()
     voice_slider = new QSlider(Qt::Horizontal);
     voice_slider->setRange(0, 100);
     voice_slider->setValue(50);
+    voice_slider->setPageStep(10);
 
     speed_button = new QPushButton();
     ButtonStyleSet(speed_button, ":/button/icon/speed.png");
 
     speed_label = new QLabel();
+    speed_label->setText(QString("%1").arg(1.0, 0, 'f', 2) + QString("倍速"));
     speed_slider = new QSlider(Qt::Horizontal);
     speed_slider->setRange(0, 8);
-    speed_slider->setTickInterval(1);
+    speed_slider->setTickInterval(2);
+    speed_slider->setTickPosition(QSlider::TicksBelow);
     speed_slider->setValue(4);
-    speed_label->setText(QString("%1").arg(1.0, 0, 'f', 2) + QString("倍速"));
+    speed_slider->setPageStep(2);
+
 
     paly_button = new QPushButton();
     ButtonStyleSet(paly_button, ":/button/icon/play.png");
@@ -82,6 +86,7 @@ void Widget::Init()
     player_slider = new QSlider(Qt::Horizontal);
     player_slider->setRange(0, 100);
     player_slider->setValue(0);
+    player_slider->setPageStep(10);
 
     playerTime_label = new QLabel();
     hlayout1->addWidget(paly_button);

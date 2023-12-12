@@ -136,6 +136,7 @@ void Widget::SetResource()
 
 void Widget::SpeedChange(int value)
 {
+//    qDebug()<<value;
     speed_label->setText(QString::number(value * 2.0 / 8.0, 'f', 2) + QString("倍速"));
     multiPlayer->setPlaybackRate(value * 2.0 / 8.0);
 }
