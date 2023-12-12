@@ -86,7 +86,7 @@ void Widget::Init()
     player_slider = new QSlider(Qt::Horizontal);
     player_slider->setRange(0, 100);
     player_slider->setValue(0);
-    player_slider->setPageStep(10);
+    player_slider->setPageStep(0);
 
     playerTime_label = new QLabel();
     hlayout1->addWidget(paly_button);
