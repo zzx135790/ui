@@ -64,7 +64,7 @@ void Widget::Init()
     speed_slider->setRange(0, 8);
     speed_slider->setTickInterval(1);
     speed_slider->setValue(4);
-    speed_label->setText(QString::number(4.0 * 2.0 / 8.0, 'g', 3) + QString("倍速"));
+    speed_label->setText(QString("%1").arg(1.0, 0, 'f', 2) + QString("倍速"));
 
     paly_button = new QPushButton();
     ButtonStyleSet(paly_button, ":/button/icon/play.png");
