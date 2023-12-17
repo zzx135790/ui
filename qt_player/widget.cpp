@@ -4,13 +4,7 @@
 #include <QDebug>
 #include <QHBoxLayout>
 #include <QPalette>
-
-void Widget::ButtonStyleSet(QPushButton* button, QString IconPath)
-{
-    button->setIcon(QIcon(IconPath));
-    button->setFlat(true);
-    button->setStyleSheet("QPushButton:hover {background-color: grey;} QPushButton:pressed {background-color: darkGrey;}");
-}
+#include <QString>
 
 
 Widget::Widget(QWidget *parent): QWidget(parent), voice_data(50),
@@ -19,12 +13,13 @@ Widget::Widget(QWidget *parent): QWidget(parent), voice_data(50),
     audioOutput = new QAudioOutput();
 
     QVBoxLayout* vlayout = new QVBoxLayout(this);
-    hlayout1 = new QHBoxLayout();
-    hlayout2 = new QHBoxLayout();
-    hlayout3 = new QHBoxLayout();
+    QHBoxLayout* hlayout = new QHBoxLayout();
 
     multiPlayer = new QMediaPlayer;
     videoWidget = new QVideoWidget(this);
+    btnWidget= new buttonWidget(this);
+
+
 
     multiPlayer->setPlaybackRate(1.0);
     multiPlayer->setVideoOutput(videoWidget);
@@ -33,87 +28,52 @@ Widget::Widget(QWidget *parent): QWidget(parent), voice_data(50),
 
     Init();
 
+    hlayout->addWidget(playerTime_label,1);
+    hlayout->addWidget(player_slider,8);
+    hlayout->addWidget(totalTime_label,1);
+
     vlayout->addWidget(videoWidget, 8);
-    vlayout->addWidget(player_slider, 1);
-    vlayout->addLayout(hlayout1, 0);
-    vlayout->addLayout(hlayout2, 0);
-    vlayout->addLayout(hlayout3, 0);
+    vlayout->addLayout(hlayout,1);
+    vlayout->addWidget(btnWidget, 1);
+
+    animation = new QPropertyAnimation(btnWidget, "pos");
+    animation->setDuration(1000);
+
+
+    // 在动画结束后更新布局的位置
+//    connect(animation, &QPropertyAnimation::finished, this, [=]() {
+//        vlayout->setGeometry(QRect(vlayout->geometry().x(), vlayout->geometry().y() - 100, vlayout->geometry().width(), vlayout->geometry().height()));
+//    });
 
     connect(multiPlayer, SIGNAL(durationChanged(qint64)), this, SLOT(getduration(qint64)));
-//    connect(player, SIGNAL(positionChanged(qint64)), this, SLOT(VideoPosChange(qint64)));
 
     videoWidget->show();
+    resize(500, 800);
 
-    resize(300, 500);
+    qDebug()<<multiPlayer->position();
 }
 
 void Widget::Init()
 {
-    voice_button = new QPushButton();
-    ButtonStyleSet(voice_button, ":/button/icon/mid_voice.png");
-
-    voice_slider = new QSlider(Qt::Horizontal);
-    voice_slider->setRange(0, 100);
-    voice_slider->setValue(50);
-    voice_slider->setPageStep(10);
-
-    speed_button = new QPushButton();
-    ButtonStyleSet(speed_button, ":/button/icon/speed.png");
-
-    speed_label = new QLabel();
-    speed_label->setText(QString("%1").arg(1.0, 0, 'f', 2) + QString("倍速"));
-    speed_slider = new QSlider(Qt::Horizontal);
-    speed_slider->setRange(0, 8);
-    speed_slider->setTickInterval(2);
-    speed_slider->setTickPosition(QSlider::TicksBelow);
-    speed_slider->setValue(4);
-    speed_slider->setPageStep(2);
-
-
-    paly_button = new QPushButton();
-    ButtonStyleSet(paly_button, ":/button/icon/play.png");
-    pause_button = new QPushButton();
-    ButtonStyleSet(pause_button, ":/button/icon/pause.png");
-    back_button = new QPushButton();
-    ButtonStyleSet(back_button, ":/button/icon/back.png");
-    ahead_button = new QPushButton();
-    ButtonStyleSet(ahead_button, ":/button/icon/ahead.png");
-    fullscreen_button = new QPushButton();
-    ButtonStyleSet(fullscreen_button, ":/button/icon/fullScreen.png");
-    selectFile_button = new QPushButton();
-    ButtonStyleSet(selectFile_button, ":/button/icon/select.png");
 
     player_slider = new QSlider(Qt::Horizontal);
     player_slider->setRange(0, 100);
     player_slider->setValue(0);
     player_slider->setPageStep(0);
 
-    playerTime_label = new QLabel();
-    hlayout1->addWidget(paly_button);
-    hlayout1->addWidget(pause_button);
-    hlayout1->addWidget(back_button);
-    hlayout1->addWidget(ahead_button);
-    hlayout1->addWidget(selectFile_button);
-    hlayout1->addWidget(fullscreen_button);
-    hlayout1->addWidget(playerTime_label);
+    playerTime_label = new QLabel("00:00");
+    totalTime_label = new QLabel("00:00");
 
-    hlayout2->addWidget(voice_button);
-    hlayout2->addWidget(voice_slider);
-//    hlayout1->addStretch();
-    hlayout3->addWidget(speed_button);
-    hlayout3->addWidget(speed_slider);
-    hlayout3->addWidget(speed_label);
-//    hlayout1->addStretch();
-    connect(voice_button, SIGNAL(clicked()), this, SLOT(voiceclick()));
-    connect(voice_slider, SIGNAL(valueChanged(int)), this, SLOT(voicechange(int)));
-    connect(paly_button, SIGNAL(clicked()), this, SLOT(playclick()));
-    connect(pause_button, SIGNAL(clicked()), this, SLOT(stopclick()));
+    connect(btnWidget, SIGNAL(voice_button_clicked()),this,SLOT(voiceclick()));
+    connect(btnWidget, SIGNAL(paly_button_clicked()),this,SLOT(playclick()));
+    connect(btnWidget, SIGNAL(pause_button_clicked()),this,SLOT(stopclick()));
+    connect(btnWidget, SIGNAL(ahead_button_clicked()),this,SLOT(aheadclick()));
+    connect(btnWidget, SIGNAL(back_button_clicked()),this,SLOT(backclick()));
+    connect(btnWidget, SIGNAL(fullscreen_button_clicked()),this,SLOT(fullscreenClick()));
+    connect(btnWidget, SIGNAL(voice_slider_valueChanged(int)),this,SLOT(voicechange(int)));
+    connect(btnWidget, SIGNAL(speed_slider_valueChanged(int)),this,SLOT(SpeedChange(int)));
+    connect(btnWidget, SIGNAL(File_button_clicked(QString)),this,SLOT(SetResource(QString)));
     connect(player_slider, SIGNAL(valueChanged(int)), this, SLOT(ProgressChange(int)));
-    connect(ahead_button, SIGNAL(clicked()), this, SLOT(aheadclick()));
-    connect(back_button, SIGNAL(clicked()), this, SLOT(backclick()));
-    connect(selectFile_button, SIGNAL(clicked()), this, SLOT(SetResource()));
-    connect(speed_slider, SIGNAL(valueChanged(int)), this, SLOT(SpeedChange(int)));
-    connect(fullscreen_button, SIGNAL(clicked()), this, SLOT(fullscreenClick()));
 }
 
 Widget::~Widget()

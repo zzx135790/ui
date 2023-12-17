@@ -11,54 +11,19 @@ void Widget::voiceclick()
     if(i == 1)
     {
         audioOutput->setVolume(0);
-        ButtonStyleSet(voice_button, ":/button/icon/novoice.png");
     }
     else if(i == 0)
     {
         audioOutput->setVolume(voice_data);
-        int voice = voice_data;
-        if(voice == 0)
-        {
-            ButtonStyleSet(voice_button, ":/button/icon/novoice.png");
-        }
-        else if (voice<=33)
-        {
-            ButtonStyleSet(voice_button, ":/button/icon/low_voice.png");
-        }
-        else if (voice<=66)
-        {
-            ButtonStyleSet(voice_button, ":/button/icon/mid_voice.png");
-        }
-        else
-        {
-            ButtonStyleSet(voice_button, ":/button/icon/high_voice.png");
-        }
     }
 
 }
 
 void Widget::voicechange(int voice)
 {
+//    qDebug()<<voice;
     float value = 0.01 * voice;
     audioOutput->setVolume(value);
-    voice_data = voice;
-
-    if(voice == 0)
-    {
-        ButtonStyleSet(voice_button, ":/button/icon/novoice.png");
-    }
-    else if (voice<=33)
-    {
-        ButtonStyleSet(voice_button, ":/button/icon/low_voice.png");
-    }
-    else if (voice<=66)
-    {
-        ButtonStyleSet(voice_button, ":/button/icon/mid_voice.png");
-    }
-    else
-    {
-        ButtonStyleSet(voice_button, ":/button/icon/high_voice.png");
-    }
 }
 
 
@@ -74,21 +39,12 @@ void Widget::stopclick()
 
 void Widget::ProgressChange(int pos)
 {
+//    qDebug()<<pos;
     if(player_slider->isSliderDown())
     {
         multiPlayer->setPosition(pos * multiPlayer->duration() / 100);
     }
 }
-
-
-void Widget::getduration(qint64 duration)
-{
-    QTime totalTime = QTime(0, 0, 0, 0);
-    totalTime = totalTime.addMSecs(duration);
-    totalFormattedTime = totalTime.toString("mm:ss");
-    playerTime_label->setText(currentFormattedTime + " / " + totalFormattedTime);
-}
-
 
 void Widget::aheadclick()
 {
@@ -104,11 +60,32 @@ void Widget::backclick()
 }
 
 void Widget::fullscreenClick(){
-    static bool ifnFullscreen = 0;
-    ifnFullscreen ^= 1;
-    videoWidget->setFullScreen(ifnFullscreen);
+//    qDebug()<<buttonWidget->pos().x();
+//    qDebug()<<buttonWidget->pos().y();
+//    buttonFrame->raise();
+//    animation->setStartValue(buttonFrame->pos());
+//    animation->setEndValue(QPoint(buttonFrame->pos().x(),buttonFrame->pos().y()- buttonFrame->geometry().height()));
+//    animation->start();
+
+//    QRect button = buttonWidget->geometry();
+//    QRect video = videoWidget->geometry();
+//    QRegion mask(QRect(video.left(),video.top()+video.height()-button.height(),button.width(),button.height()));
+//    qDebug()<<mask;
+//    buttonWidget->setMask(mask);
+//    static bool ifnFullscreen = 0;
+//    ifnFullscreen ^= 1;
+//    videoWidget->setFullScreen(ifnFullscreen);
 }
 
+
+void Widget::getduration(qint64 duration)
+{
+    QTime totalTime = QTime(0, 0, 0, 0);
+    totalTime = totalTime.addMSecs(duration);
+    totalFormattedTime = totalTime.toString("mm:ss");
+    playerTime_label->setText(currentFormattedTime);
+    totalTime_label->setText(totalFormattedTime);
+}
 
 void Widget::VideoPosChange(qint64 position)
 {
@@ -116,18 +93,17 @@ void Widget::VideoPosChange(qint64 position)
     {
         return;
     }
-//    qDebug()<< multiPlayer->source();
+    //    qDebug()<< multiPlayer->source();
     player_slider->setSliderPosition(100 * position / multiPlayer->duration());
 
     QTime currentTime(0, 0, 0, 0);
     currentTime = currentTime.addMSecs(multiPlayer->position());
     currentFormattedTime = currentTime.toString("mm:ss");
-    playerTime_label->setText(currentFormattedTime + " / " + totalFormattedTime);
+    playerTime_label->setText(currentFormattedTime);
 }
 
-void Widget::SetResource()
+void Widget::SetResource(QString resource)
 {
-    resource = QFileDialog::getOpenFileName(this, tr("选择播放源"), "", tr(" Video Files(*.mp4)"));
     QUrl url = QUrl::fromLocalFile(resource);
     multiPlayer->setSource(url);
     multiPlayer->play();
@@ -136,7 +112,5 @@ void Widget::SetResource()
 
 void Widget::SpeedChange(int value)
 {
-//    qDebug()<<value;
-    speed_label->setText(QString::number(value * 2.0 / 8.0, 'f', 2) + QString("倍速"));
     multiPlayer->setPlaybackRate(value * 2.0 / 8.0);
 }
