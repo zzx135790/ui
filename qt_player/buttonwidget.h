@@ -36,6 +36,7 @@ class buttonWidget : public QWidget
     void Init();
 
     int voice_data;
+    bool mute;
 
 public:
 
@@ -43,12 +44,13 @@ public:
     ~buttonWidget();
 
 signals:
-    void voice_button_clicked();
+
     void paly_button_clicked();
     void pause_button_clicked();
     void ahead_button_clicked();
     void back_button_clicked();
     void fullscreen_button_clicked();
+    void voice_button_clicked(int voice);
     void voice_slider_valueChanged(int voice);
     void speed_slider_valueChanged(int speed);
     void File_button_clicked(QString resource);

@@ -24,6 +24,8 @@ buttonWidget::buttonWidget(QWidget *parent): QWidget(parent)
 
 void buttonWidget::Init()
 {
+
+
     voice_button = new QPushButton();
     ButtonStyleSet(voice_button, ":/button/icon/mid_voice.png");
 
@@ -31,7 +33,8 @@ void buttonWidget::Init()
     voice_slider->setRange(0, 100);
     voice_slider->setValue(50);
     voice_slider->setPageStep(10);
-
+    mute = 0;
+    voice_data = 50;
     speed_button = new QPushButton();
     ButtonStyleSet(speed_button, ":/button/icon/speed.png");
 

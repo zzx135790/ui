@@ -4,7 +4,7 @@
 #include <QFile>
 #include <QFileDialog>
 
-void Widget::voiceclick()
+void Widget::voiceclick(int voice)
 {
     static int i = 0;
     i = !i;
@@ -14,7 +14,7 @@ void Widget::voiceclick()
     }
     else if(i == 0)
     {
-        audioOutput->setVolume(voice_data);
+        audioOutput->setVolume(voice);
     }
 
 }

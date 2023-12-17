@@ -1,13 +1,12 @@
 #include "buttonwidget.h"
 #include <QFileDialog>
 void buttonWidget::slot_voice_button_clicked(){
-    static int i = 0;
-    i = !i;
-    if(i == 1)
+    mute = !mute;
+    if(mute == 1)
     {
         ButtonStyleSet(voice_button, ":/button/icon/novoice.png");
     }
-    else if(i == 0)
+    else
     {
         int voice = voice_data;
         if(voice == 0)
@@ -27,7 +26,7 @@ void buttonWidget::slot_voice_button_clicked(){
             ButtonStyleSet(voice_button, ":/button/icon/high_voice.png");
         }
     }
-    emit voice_button_clicked();
+    emit voice_button_clicked(voice_data);
 }
 
 void buttonWidget::slot_paly_button_clicked(){
@@ -58,7 +57,6 @@ void buttonWidget::slot_fullscreen_button_clicked(){
 void buttonWidget::slot_voice_slider_valueChanged(int value){
     voice_data = value;
     int voice = value;
-
     if(voice == 0)
     {
         ButtonStyleSet(voice_button, ":/button/icon/novoice.png");

@@ -7,7 +7,7 @@
 #include <QString>
 
 
-Widget::Widget(QWidget *parent): QWidget(parent), voice_data(50),
+Widget::Widget(QWidget *parent): QWidget(parent),
     currentFormattedTime("00:00")
 {
     audioOutput = new QAudioOutput();
@@ -24,7 +24,7 @@ Widget::Widget(QWidget *parent): QWidget(parent), voice_data(50),
     multiPlayer->setPlaybackRate(1.0);
     multiPlayer->setVideoOutput(videoWidget);
     multiPlayer->setAudioOutput(audioOutput);
-    audioOutput->setVolume(voice_data);
+    audioOutput->setVolume(50);
 
     Init();
 
@@ -64,7 +64,7 @@ void Widget::Init()
     playerTime_label = new QLabel("00:00");
     totalTime_label = new QLabel("00:00");
 
-    connect(btnWidget, SIGNAL(voice_button_clicked()),this,SLOT(voiceclick()));
+    connect(btnWidget, SIGNAL(voice_button_clicked(int)),this,SLOT(voiceclick(int)));
     connect(btnWidget, SIGNAL(paly_button_clicked()),this,SLOT(playclick()));
     connect(btnWidget, SIGNAL(pause_button_clicked()),this,SLOT(stopclick()));
     connect(btnWidget, SIGNAL(ahead_button_clicked()),this,SLOT(aheadclick()));

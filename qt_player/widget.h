@@ -29,9 +29,7 @@ class Widget : public QWidget
     QString totalFormattedTime;
     QString currentFormattedTime;
 
-    int voice_data;
     bool fullscreen;
-
     void Init();
 
 
@@ -40,7 +38,7 @@ public:
     ~Widget();
 
 protected slots:
-    void voiceclick();
+    void voiceclick(int voice);
     void voicechange(int voice);
 
     void playclick();
