@@ -300,6 +300,14 @@ Widget::Widget(QWidget *parent)
         }
         else{
             buttons_2[button_2_index]->setStyleSheet(button_sheet_one);
+            // 从资源文件加载图标
+            QIcon icon(":/icon/plus.png");
+
+            // 设置按钮的大小和图标
+            icon = icon.pixmap(QSize(40, 40));
+            buttons_2[button_2_index]->setIcon(icon);
+            buttons_2[button_2_index]->setIconSize(QSize(40, 40));
+
         }
         button_2_index += 1;
     }

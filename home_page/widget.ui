@@ -362,10 +362,6 @@ background-color:#232323;</string>
          <property name="text">
           <string/>
          </property>
-         <property name="icon">
-          <iconset resource="icon/Resource.qrc">
-           <normaloff>:/icon/plus.png</normaloff>:/icon/plus.png</iconset>
-         </property>
          <property name="iconSize">
           <size>
            <width>40</width>
@@ -408,11 +404,6 @@ background-color:#232323;</string>
          <property name="text">
           <string/>
          </property>
-         <property name="icon">
-          <iconset>
-           <normalon>:/icon/plus.png</normalon>
-          </iconset>
-         </property>
          <property name="iconSize">
           <size>
            <width>40</width>
@@ -454,11 +445,6 @@ background-color:#232323;</string>
          </property>
          <property name="text">
           <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="icon/Resource.qrc">
-           <normaloff>:/icon/plus.png</normaloff>
-           <normalon>:/icon/plus.png</normalon>:/icon/plus.png</iconset>
          </property>
          <property name="iconSize">
           <size>
