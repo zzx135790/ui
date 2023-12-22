@@ -123,7 +123,22 @@ Widget::Widget(QWidget *parent)
     user_3->setStyleSheet(button_sheet_three);
     shoot->setStyleSheet(button_sheet_four);
 
-    QFile file("/Users/pamper/Desktop/QT/home_page/data.xml");
+    QFile file_org("./data.xml");
+
+    if (!file_org.exists()) {
+        // 文件不存在，执行你的函数或操作
+        writeXmlToFile();
+        qDebug() << "File doesn't exist, performing the operation...";
+    } else {
+        // 文件存在，不执行操作
+        qDebug() << "File already exists, skipping the operation...";
+    }
+
+
+
+    //读取文件内容
+
+    QFile file("./data.xml");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         // Handle file opening error
 
@@ -164,7 +179,7 @@ Widget::Widget(QWidget *parent)
     }
     if (xml.hasError()) {
         // Handle XML parsing error
-        printf("解析xml文件失败\n");
+        qDebug() << ("解析xml文件失败\n");
     }
 
     file.close();
@@ -381,6 +396,54 @@ void Widget::post_url(QString url)
 void Widget::handleClick()
 {
     this->hide();
+}
+
+
+void Widget::writeXmlToFile() {
+    QFile file("./data.xml"); // 替换为你想要保存的文件路径
+
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        // 文件打开失败，处理错误
+        qDebug() << "文件打开失败";
+        return;
+    }
+
+    QXmlStreamWriter xmlWriter(&file);
+    xmlWriter.setAutoFormatting(true); // 可选，设置自动格式化以便更易读
+
+    xmlWriter.writeStartDocument();
+    xmlWriter.writeStartElement("mediaItems");
+
+    // 这里准备了一个示例数据列表，你可以使用自己的数据
+    QList<QStringList> mediaItems = {
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-01", "/path/to/video1.mp4"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-02", "/path/to/video1.mp4"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-03", "/path/to/video1.mp4"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-04", "/path/to/video1.mp4"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-05", "/path/to/video1.mp4"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-06", "/path/to/video1.mp4"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-07", "/path/to/video1.mp4"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-08", "/path/to/video1.mp4"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-09", "/path/to/video1.mp4"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-10", "/path/to/video1.mp4"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-11", "/path/to/video1.mp4"},
+        {"", "2023-12-12", "/path/to/video1.mp4"},
+        {":/user_img/user1.png", "2023-12-13", "/path/to/video1.mp4"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-13", "/path/to/video1.mp4"},
+    };
+
+    for (const auto& item : mediaItems) {
+        xmlWriter.writeStartElement("mediaItem");
+        xmlWriter.writeTextElement("imagePath", item.at(0));
+        xmlWriter.writeTextElement("createTime", item.at(1));
+        xmlWriter.writeTextElement("videoPath", item.at(2));
+        xmlWriter.writeEndElement(); // mediaItem
+    }
+
+    xmlWriter.writeEndElement(); // mediaItems
+    xmlWriter.writeEndDocument();
+
+    file.close(); // 关闭文件
 }
 
 

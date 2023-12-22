@@ -117,6 +117,7 @@
           <widget class="QLabel" name="label">
            <property name="font">
             <font>
+             <family>Arial Rounded MT Bold</family>
              <pointsize>20</pointsize>
              <bold>true</bold>
             </font>
@@ -247,6 +248,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Arial Rounded MT Bold</family>
            <pointsize>22</pointsize>
           </font>
          </property>
@@ -278,6 +280,12 @@
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>Arial Rounded MT Bold</family>
+           <pointsize>13</pointsize>
+          </font>
          </property>
          <property name="styleSheet">
           <string notr="true">color:#ffffff;</string>
@@ -497,6 +505,7 @@ background-color:#232323;</string>
         <widget class="QLabel" name="label_7">
          <property name="font">
           <font>
+           <family>Arial Rounded MT Bold</family>
            <pointsize>20</pointsize>
           </font>
          </property>
@@ -525,6 +534,7 @@ background-color:#232323;</string>
         <widget class="QLabel" name="label_8">
          <property name="font">
           <font>
+           <family>Arial Rounded MT Bold</family>
            <pointsize>14</pointsize>
           </font>
          </property>
@@ -580,6 +590,7 @@ background-color:#232323;</string>
            <widget class="QLabel" name="label_9">
             <property name="font">
              <font>
+              <family>Arial Rounded MT Bold</family>
               <pointsize>16</pointsize>
              </font>
             </property>
@@ -1163,6 +1174,7 @@ border-radius:8px</string>
             </property>
             <property name="font">
              <font>
+              <family>Arial Rounded MT Bold</family>
               <pointsize>20</pointsize>
              </font>
             </property>
@@ -1297,6 +1309,7 @@ border-radius:50px
       <widget class="QLabel" name="label_10">
        <property name="font">
         <font>
+         <family>Arial Rounded MT Bold</family>
          <pointsize>16</pointsize>
         </font>
        </property>

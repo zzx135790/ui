@@ -41,6 +41,7 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
     share *widget2 = NULL;
+    void writeXmlToFile();
 
 signals:
     QString video_url(const QString &url, const QSize &size, const QPalette &currentPal);
