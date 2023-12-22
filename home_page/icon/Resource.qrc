@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>upload.png</file>
+        <file>right.png</file>
+        <file>friends.png</file>
+        <file>Resource.qrc</file>
+        <file>user.png</file>
+        <file>lock.png</file>
+        <file>plus.png</file>
+        <file>../user_img/user1.png</file>
+        <file>../user_img/user2.png</file>
+        <file>../user_img/user3.png</file>
+        <file>search.png</file>
+        <file>blue.png</file>
+    </qresource>
+</RCC>
