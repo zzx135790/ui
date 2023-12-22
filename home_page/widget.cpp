@@ -436,8 +436,8 @@ void Widget::writeXmlToFile() {
         {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-10", "/path/to/video1.mp4"},
         {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-11", "/path/to/video1.mp4"},
         {"", "2023-12-12", "/path/to/video1.mp4"},
-        {":/user_img/user1.png", "2023-12-13", "/path/to/video1.mp4"},
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-13", "/path/to/video1.mp4"},
+        {":/icon/user_img/user1.png", "2023-12-13", "/path/to/video1.mp4"},
+        {":/icon/user_img/user1.png", "2023-12-13", "/path/to/video1.mp4"},
     };
 
     for (const auto& item : mediaItems) {
