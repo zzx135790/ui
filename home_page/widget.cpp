@@ -208,9 +208,9 @@ Widget::Widget(QWidget *parent)
             QPalette currentPal(this->palette());
             QSize currentPageSize = this->size();
 
-            connect(button, &QPushButton::clicked, [this, url,currentPal,currentPageSize]() {
+            connect(button, &QPushButton::clicked, [this, url,currentPageSize]() {
                 // 在这里处理按钮点击事件，使用video对象的信息
-                post_url(url,currentPal,currentPageSize);
+                post_url(url,currentPageSize);
             });
 
             // 从资源文件加载图标
@@ -241,9 +241,9 @@ Widget::Widget(QWidget *parent)
             QString url = video.get_URL();
             QPalette currentPal(this->palette());
             QSize currentPageSize = this->size();
-            connect(button, &QPushButton::clicked, [this, url,currentPal,currentPageSize]() {
+            connect(button, &QPushButton::clicked, [this, url,currentPageSize]() {
                 // 在这里处理按钮点击事件，使用video对象的信息
-                post_url(url,currentPal,currentPageSize);
+                post_url(url,currentPageSize);
             });
 
             // 从资源文件加载图标
@@ -395,10 +395,11 @@ void Widget::comeBackToPrev()
     this->show();
 }
 
-void Widget::post_url(QString url,QPalette currentPal,QSize currentPageSize)
+void Widget::post_url(QString url,QSize currentPageSize)
 {
     qDebug() << "URL:" << url;
     videoWidget->show();
+    QPalette currentPal(this->palette());
     QPoint currentPos = this->pos();
     int x = currentPos.x();
     int y = currentPos.y();
