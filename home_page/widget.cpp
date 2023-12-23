@@ -312,17 +312,6 @@ Widget::Widget(QWidget *parent)
     }
 
 
-
-
-    for ( auto& video : *video_list) {
-        qDebug() << "Time:" << video.get_Time();
-        qDebug() << "Video Path:" << video.get_URL();
-        qDebug() << "Image Path:" << video.get_img();
-        qDebug() << "------------------------------------";
-    }
-
-
-
 }
 
 Widget::~Widget()
@@ -373,6 +362,10 @@ void Widget::on_share_3_clicked()
         QSize currentPageSize = this->size();
         this->hide();
         this->widget2->resize(currentPageSize);
+        QPoint currentPos = this->pos();
+        int x = currentPos.x();
+        int y = currentPos.y();
+        this->widget2->move(x, y);
         this->widget2->setPalette(currentPal);
         this->widget2->show();
     } else {
@@ -385,7 +378,12 @@ void Widget::on_share_3_clicked()
 
 void Widget::comeBackToPrev()
 {
+
     this->widget2->hide();
+    QPoint currentPos = this->pos();
+    int x = currentPos.x();
+    int y = currentPos.y();
+    this->move(x, y);
     this->show();
 }
 
