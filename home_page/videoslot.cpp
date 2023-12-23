@@ -102,9 +102,12 @@ void PlayerWidget::VideoPosChange(qint64 position)
     playerTime_label->setText(currentFormattedTime);
 }
 
-void PlayerWidget::SetResource(QString resource)
+void PlayerWidget::SetResource(QString resource,QPalette currentPal,QSize currentPageSize)
 {
     QUrl url = QUrl::fromLocalFile(resource);
+    this->resize(currentPageSize);
+    this->setPalette(currentPal);
+
     multiPlayer->setMedia(url);
     multiPlayer->play();
     connect(multiPlayer, SIGNAL(positionChanged(qint64)), this, SLOT(VideoPosChange(qint64)));

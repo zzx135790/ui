@@ -1,6 +1,8 @@
 #include "widget.h"
-#include "ui_widget.h"
 #include "video.h"
+#include "ui_widget.h"
+
+
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Widget)
@@ -203,10 +205,12 @@ Widget::Widget(QWidget *parent)
         if(video.get_img() != NULL && buttonIndex < 3){
 
             QString url = video.get_URL();
+            QPalette currentPal(this->palette());
+            QSize currentPageSize = this->size();
 
-            connect(button, &QPushButton::clicked, [this, url]() {
+            connect(button, &QPushButton::clicked, [this, url,currentPal,currentPageSize]() {
                 // 在这里处理按钮点击事件，使用video对象的信息
-                post_url(url);
+                post_url(url,currentPal,currentPageSize);
             });
 
             // 从资源文件加载图标
@@ -235,9 +239,11 @@ Widget::Widget(QWidget *parent)
         else if(video.get_img() != NULL && buttonIndex >= 3){
 
             QString url = video.get_URL();
-            connect(button, &QPushButton::clicked, [this, url]() {
+            QPalette currentPal(this->palette());
+            QSize currentPageSize = this->size();
+            connect(button, &QPushButton::clicked, [this, url,currentPal,currentPageSize]() {
                 // 在这里处理按钮点击事件，使用video对象的信息
-                post_url(url);
+                post_url(url,currentPal,currentPageSize);
             });
 
             // 从资源文件加载图标
@@ -379,12 +385,12 @@ void Widget::comeBackToPrev()
     this->show();
 }
 
-void Widget::post_url(QString url)
+void Widget::post_url(QString url,QPalette currentPal,QSize currentPageSize)
 {
     qDebug() << "URL:" << url;
     videoWidget->show();
-    connect(this,SIGNAL(video_url(QString)),videoWidget,SLOT(SetResource(QString)));
-    emit video_url(url);
+    connect(this,SIGNAL(video_url(QString ,QPalette ,QSize)),videoWidget,SLOT(SetResource(QString,QPalette ,QSize)));
+    emit video_url(url,currentPal,currentPageSize);
 }
 
 void Widget::handleClick()
@@ -411,20 +417,20 @@ void Widget::writeXmlToFile() {
 
     // 这里准备了一个示例数据列表，你可以使用自己的数据
     QList<QStringList> mediaItems = {
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-01", "F:/FFOutput/test.wmv"},
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-02", "F:/FFOutput/test.wmv"},
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-03", "F:/FFOutput/test.wmv"},
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-04", "F:/FFOutput/test.wmv"},
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-05", "F:/FFOutput/test.wmv"},
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-06", "F:/FFOutput/test.wmv"},
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-07", "F:/FFOutput/test.wmv"},
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-08", "F:/FFOutput/test.wmv"},
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-09", "F:/FFOutput/test.wmv"},
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-10", "F:/FFOutput/test.wmv"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-01", "/Users/pamper/Desktop/test1/avi"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-02", "/Users/pamper/Desktop"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-03", "/Users/pamper/Desktop"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-04", "/Users/pamper/Desktop"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-05", "/Users/pamper/Desktop"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-06", "/Users/pamper/Desktop"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-07", "/Users/pamper/Desktop"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-08", "/Users/pamper/Desktop"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-09", "/Users/pamper/Desktop"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-10", "/Users/pamper/Desktop"},
         {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-11", "F:/FFOutput/test.wmv"},
-        {"", "2023-12-12", "F:/FFOutput/test.wmv"},
-        {":/icon/user_img/user1.png", "2023-12-13", "F:/FFOutput/test.wmv"},
-        {":/icon/user_img/user1.png", "2023-12-13", "F:/FFOutput/test.wmv"},
+        {"", "2023-12-12", "/Users/pamper/Desktop/test1.avi"},
+        {":/icon/user_img/user1.png", "2023-12-13", "/Users/pamper/Desktop/test1.avi"},
+        {":/icon/user_img/user1.png", "2023-12-13", "/Users/pamper/Desktop/test1.avi"},
     };
 
     for (const auto& item : mediaItems) {

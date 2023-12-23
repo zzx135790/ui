@@ -4,7 +4,21 @@ void buttonWidget::ButtonStyleSet(QPushButton* button, QString IconPath)
 {
     button->setIcon(QIcon(IconPath));
     button->setFlat(true);
-    button->setStyleSheet("QPushButton:hover {background-color: grey;} QPushButton:pressed {background-color: darkGrey;}");
+    button->setStyleSheet("QPushButton {"
+                          "border-radius: 8px;" // 普通状态下的边框圆角
+                          "background-color: #232323;"
+                          "color: #ffffff"
+                          "}"
+                          "QPushButton:hover {"
+                          "border-color: #FAF9F6;" // 悬停状态下修改边框颜色
+                          "background-color: #3C3C3C;"
+                          "color: #ffffff"
+                          "}"
+                          "QPushButton:pressed {"
+                          "border-width: 3px;" // 按下状态下增加边框宽度
+                          "background-color: #191919;"
+                          "color: #ffffff"
+                          "}");
 }
 
 buttonWidget::buttonWidget(QWidget *parent): QWidget(parent), speed_data(2),
@@ -36,6 +50,22 @@ void buttonWidget::Init()
     voice_slider->setPageStep(10);
     speed_button = new QPushButton();
     speed_button->setText(QString("%1").arg(1.0, 0, 'f', 1) + QString(" x"));
+
+    speed_button->setStyleSheet("QPushButton {"
+                                "border-radius: 8px;" // 普通状态下的边框圆角
+                                "background-color: #232323;"
+                                "}"
+                                "QPushButton:hover {"
+                                "border-color: #FAF9F6;" // 悬停状态下修改边框颜色
+                                "background-color: #3C3C3C;"
+                                "color: #ffffff"
+                                "}"
+                                "QPushButton:pressed {"
+                                "border-width: 3px;" // 按下状态下增加边框宽度
+                                "background-color: #191919;"
+                                "color: #ffffff"
+                                "}");
+
     // speed_button 样式
 
 //    speed_label = new QLabel();
@@ -67,7 +97,7 @@ void buttonWidget::Init()
     hlayout1->addWidget(play_button,1);
     hlayout1->addWidget(ahead_button,1);
     hlayout1->addWidget(speed_button,2);
-    hlayout1->addWidget(selectFile_button,1);
+//    hlayout1->addWidget(selectFile_button,1);
     hlayout1->addWidget(fullscreen_button,1);
 
 

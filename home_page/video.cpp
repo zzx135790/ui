@@ -68,7 +68,7 @@ void PlayerWidget::Init()
     connect(btnWidget, SIGNAL(fullscreen_button_clicked()),this,SLOT(fullscreenClick()));
     connect(btnWidget, SIGNAL(voice_slider_valueChanged(int)),this,SLOT(voicechange(int)));
     connect(btnWidget, SIGNAL(speed_slider_valueChanged(int)),this,SLOT(SpeedChange(int)));
-    connect(btnWidget, SIGNAL(File_button_clicked(QString)),this,SLOT(SetResource(QString)));
+//    connect(btnWidget, SIGNAL(File_button_clicked(QString)),this,SLOT(SetResource(QString,QPalette,QSize)));
     connect(player_slider, SIGNAL(valueChanged(int)), this, SLOT(ProgressChange(int)));
 }
 

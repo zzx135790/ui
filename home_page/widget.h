@@ -45,12 +45,12 @@ public:
     void writeXmlToFile();
 
 signals:
-    void video_url(const QString url);
+    void video_url(const QString url,const QPalette currentPal,const QSize currentPageSize);
 
 private slots:
     void on_share_3_clicked();
     void comeBackToPrev();
-    void post_url(QString url);
+    void post_url(QString url,QPalette currentPal,QSize currentPageSize);
     void handleClick();
 
 private:
