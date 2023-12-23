@@ -7,7 +7,9 @@ void buttonWidget::ButtonStyleSet(QPushButton* button, QString IconPath)
     button->setStyleSheet("QPushButton {"
                           "border-radius: 8px;" // 普通状态下的边框圆角
                           "background-color: #232323;"
-                          "color: #ffffff"
+                          "color: #ffffff;"
+                          "padding-top: 5px;" // 上方间距为 15px
+                          "padding-bottom: 5px;" // 下方间距为 15px
                           "}"
                           "QPushButton:hover {"
                           "border-color: #FAF9F6;" // 悬停状态下修改边框颜色
@@ -48,12 +50,37 @@ void buttonWidget::Init()
     voice_slider->setRange(0, 100);
     voice_slider->setValue(50);
     voice_slider->setPageStep(10);
+    voice_slider->setStyleSheet(
+        "QSlider::groove:horizontal {"
+        "    border: 1px solid #A9A9A9;"
+        "    height: 4px;"
+        "    margin: 2px 0;"
+        "    background: #A9A9A9;"
+        "    border-radius: 3px;"
+        "}"
+        "QSlider::handle:horizontal {"
+        "    background: #FFFFFF;"
+        "    border: 1px solid #A9A9A9;"
+        "    width: 10px;"
+        "    margin: -2px 0;"
+        "    border-radius: 3px;"
+        "}"
+//        "QSlider::sub-page:horizontal {"
+//        "    background: #3498db;" /* 设置填充部分颜色为深蓝色 */
+//        "    border-radius: 3px;" /* 可选：如果你想要填充部分也有圆角 */
+//        "    height: 4px;"
+//        "}"
+        );
+
     speed_button = new QPushButton();
     speed_button->setText(QString("%1").arg(1.0, 0, 'f', 1) + QString(" x"));
 
     speed_button->setStyleSheet("QPushButton {"
                                 "border-radius: 8px;" // 普通状态下的边框圆角
                                 "background-color: #232323;"
+                                "color: #ffffff;"
+                                "padding-top: 5px;" // 上方间距为 15px
+                                "padding-bottom: 5px;" // 下方间距为 15px
                                 "}"
                                 "QPushButton:hover {"
                                 "border-color: #FAF9F6;" // 悬停状态下修改边框颜色

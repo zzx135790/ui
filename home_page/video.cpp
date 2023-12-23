@@ -56,6 +56,27 @@ void PlayerWidget::Init()
     player_slider->setRange(0, 100);
     player_slider->setValue(0);
     player_slider->setPageStep(0);
+    player_slider->setStyleSheet(
+        "QSlider::groove:horizontal {"
+        "    border: 1px solid #A9A9A9;"
+        "    height: 6px;"
+        "    margin: 2px 0;"
+        "    background: #A9A9A9;"
+        "    border-radius: 4px;"
+        "}"
+        "QSlider::handle:horizontal {"
+        "    background: #FFFFFF;"
+        "    border: 1px solid #A9A9A9;"
+        "    width: 10px;"
+        "    margin: -2px 0;"
+        "    border-radius: 4px;"
+        "}"
+//        "QSlider::sub-page:horizontal {"
+//        "    background: #3498db;" /* 设置填充部分颜色为深蓝色 */
+//        "    border-radius: 4px;" /* 可选：如果你想要填充部分也有圆角 */
+//        "    height: 6px;"
+//        "}"
+        );
 
     playerTime_label = new QLabel("00:00");
     totalTime_label = new QLabel("00:00");

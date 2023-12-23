@@ -367,6 +367,11 @@ void Widget::on_share_3_clicked()
     if (this->isVisible()) {
         QPalette currentPal(this->palette());
         QSize currentPageSize = this->size();
+        // 设置 widget2 的位置为与 widget1 相同
+        QPoint currentPos = this->pos();
+        int x = currentPos.x();
+        int y = currentPos.y();
+        this->widget2->move(x, y);
         this->hide();
         this->widget2->resize(currentPageSize);
         this->widget2->setPalette(currentPal);
@@ -381,6 +386,11 @@ void Widget::on_share_3_clicked()
 
 void Widget::comeBackToPrev()
 {
+    // 设置 widget2 的位置为与 widget1 相同
+    QPoint currentPos = this->widget2->pos();
+    int x = currentPos.x();
+    int y = currentPos.y();
+    this->widget2->move(x, y);
     this->widget2->hide();
     this->show();
 }
@@ -389,8 +399,11 @@ void Widget::post_url(QString url,QPalette currentPal,QSize currentPageSize)
 {
     qDebug() << "URL:" << url;
     videoWidget->show();
-    connect(this,SIGNAL(video_url(QString ,QPalette ,QSize)),videoWidget,SLOT(SetResource(QString,QPalette ,QSize)));
-    emit video_url(url,currentPal,currentPageSize);
+    QPoint currentPos = this->pos();
+    int x = currentPos.x();
+    int y = currentPos.y();
+    connect(this,SIGNAL(video_url(QString ,QPalette ,QSize,int,int)),videoWidget,SLOT(SetResource(QString,QPalette ,QSize,int,int)));
+    emit video_url(url,currentPal,currentPageSize,x,y);
 }
 
 void Widget::handleClick()

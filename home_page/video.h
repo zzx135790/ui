@@ -54,7 +54,7 @@ protected slots:
 
     void SpeedChange(int value);
 
-    void SetResource(QString resource,QPalette currentPal,QSize currentPageSize);
+    void SetResource(QString resource,QPalette currentPal,QSize currentPageSize,int x, int y);
 
 };
 #endif // PLAYER_H

@@ -45,7 +45,7 @@ public:
     void writeXmlToFile();
 
 signals:
-    void video_url(const QString url,const QPalette currentPal,const QSize currentPageSize);
+    void video_url(const QString url,const QPalette currentPal,const QSize currentPageSize, const int x, const int y);
 
 private slots:
     void on_share_3_clicked();
