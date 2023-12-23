@@ -1,53 +1,77 @@
 #include "video.h"
-#include "ui_video.h"
+#include <QVBoxLayout>
+#include <QIcon>
+#include <QDebug>
+#include <QHBoxLayout>
+#include <QPalette>
+#include <QString>
 
 
-int buttonTextState = 1;
-QPushButton *numberButton = NULL;
-
-
-
-Video::Video(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::Video)
+PlayerWidget::PlayerWidget(QWidget *parent): QWidget(parent), currentFormattedTime("00:00")
 {
+    audioOutput = new QAudioOutput();
 
-    ui->setupUi(this);
-    // 连接按钮的点击信号到槽函数
-    numberButton = findChild<QPushButton*>("pushButton_13");
-    connect(numberButton, &QPushButton::clicked, this, &Video::onNumberButtonClicked);
-//    Widget *widget = new Widget();
-//    connect(widget, &Widget::video_url, this, &Video::receiveURL);
+    QVBoxLayout* vlayout = new QVBoxLayout(this);
+    QHBoxLayout* hlayout = new QHBoxLayout();
 
-    QPushButton *backButton = findChild<QPushButton*>("video_to_home_2");
-    connect(backButton, &QPushButton::clicked, this, &Video::return_to_home);
+    multiPlayer = new QMediaPlayer;
+    videoWidget = new QVideoWidget(this);
+    btnWidget= new buttonWidget(this);
 
+    multiPlayer->setPlaybackRate(1.0);
+    multiPlayer->setVideoOutput(videoWidget);
+    multiPlayer->setVolume(50);
+
+    Init();
+
+    hlayout->addWidget(playerTime_label,1);
+    hlayout->addWidget(player_slider,8);
+    hlayout->addWidget(totalTime_label,1);
+
+    vlayout->addWidget(videoWidget, 8);
+    vlayout->addLayout(hlayout,1);
+    vlayout->addWidget(btnWidget, 1);
+
+    animation = new QPropertyAnimation(btnWidget, "pos");
+    animation->setDuration(1000);
+
+
+    // 在动画结束后更新布局的位置
+    //    connect(animation, &QPropertyAnimation::finished, this, [=]() {
+    //        vlayout->setGeometry(QRect(vlayout->geometry().x(), vlayout->geometry().y() - 100, vlayout->geometry().width(), vlayout->geometry().height()));
+    //    });
+
+    connect(multiPlayer, SIGNAL(durationChanged(qint64)), this, SLOT(getduration(qint64)));
+
+    videoWidget->show();
+    resize(500, 800);
+
+    qDebug()<<multiPlayer->position();
 }
 
-Video::~Video()
+void PlayerWidget::Init()
 {
-    delete ui;
+
+    player_slider = new QSlider(Qt::Horizontal);
+    player_slider->setRange(0, 100);
+    player_slider->setValue(0);
+    player_slider->setPageStep(0);
+
+    playerTime_label = new QLabel("00:00");
+    totalTime_label = new QLabel("00:00");
+
+    connect(btnWidget, SIGNAL(voice_button_clicked(int)),this,SLOT(voiceclick(int)));
+    connect(btnWidget, SIGNAL(paly_button_clicked()),this,SLOT(playclick()));
+    connect(btnWidget, SIGNAL(pause_button_clicked()),this,SLOT(stopclick()));
+    connect(btnWidget, SIGNAL(ahead_button_clicked()),this,SLOT(aheadclick()));
+    connect(btnWidget, SIGNAL(back_button_clicked()),this,SLOT(backclick()));
+    connect(btnWidget, SIGNAL(fullscreen_button_clicked()),this,SLOT(fullscreenClick()));
+    connect(btnWidget, SIGNAL(voice_slider_valueChanged(int)),this,SLOT(voicechange(int)));
+    connect(btnWidget, SIGNAL(speed_slider_valueChanged(int)),this,SLOT(SpeedChange(int)));
+    connect(btnWidget, SIGNAL(File_button_clicked(QString)),this,SLOT(SetResource(QString)));
+    connect(player_slider, SIGNAL(valueChanged(int)), this, SLOT(ProgressChange(int)));
 }
 
-void Video::return_to_home()
+PlayerWidget::~PlayerWidget()
 {
-    this->hide();
-    widget->show();
-}
-
-//void Video::receiveURL(const QString &url, const QSize &size, const QPalette &currentPal) {
-
-//    qDebug() << "Received URL in Page2: " << url;
-//    this->resize(size);
-//    this->setPalette(currentPal);
-//    this->show();
-
-//}
-
-
-// 槽函数，用于处理按钮的点击事件
-void Video::onNumberButtonClicked() {
-    buttonTextState = (buttonTextState % 3) + 1; // 循环在 1、2、3 之间切换
-    QString newText = QString::number(buttonTextState); // 将状态转换为字符串
-    numberButton->setText(newText); // 设置按钮文本为新的状态值
 }

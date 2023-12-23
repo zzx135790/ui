@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "share.h"
+#include "video.h"
 #include <QTime>
 #include <QVector>
 #include <vector>
@@ -44,7 +45,7 @@ public:
     void writeXmlToFile();
 
 signals:
-    QString video_url(const QString &url, const QSize &size, const QPalette &currentPal);
+    void video_url(const QString url);
 
 private slots:
     void on_share_3_clicked();
@@ -54,6 +55,7 @@ private slots:
 
 private:
     Ui::Widget *ui;
+    PlayerWidget *videoWidget;
     QVector<video_item> *video_list;
     QVector<video_item> *show_list;
     QSignalMapper *signalMapper;

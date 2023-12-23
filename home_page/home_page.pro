@@ -13,14 +13,18 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    buttonslot.cpp \
     main.cpp \
     share.cpp \
     video.cpp \
+    videobutton.cpp \
+    videoslot.cpp \
     widget.cpp
 
 HEADERS += \
     share.h \
     video.h \
+    videobutton.h \
     widget.h
 
 FORMS += \
@@ -34,7 +38,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    icon/Resource.qrc
+    icon/Resource.qrc \
+    button.qrc
 
 DISTFILES += \
     data.xml

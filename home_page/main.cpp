@@ -1,4 +1,5 @@
 #include "widget.h"
+#include "video.h"
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QImage>
@@ -27,9 +28,8 @@ int main(int argc, char *argv[])
     w.setAutoFillBackground(true);
     w.setPalette(pal);
 
-
-
-
     w.show();
+//    PlayerWidget video;
+//    video.show();
     return a.exec();
 }
