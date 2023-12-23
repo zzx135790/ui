@@ -311,6 +311,7 @@ Widget::Widget(QWidget *parent)
         button_2_index += 1;
     }
 
+    videoWidget = new PlayerWidget();
 
 }
 
@@ -362,10 +363,6 @@ void Widget::on_share_3_clicked()
         QSize currentPageSize = this->size();
         this->hide();
         this->widget2->resize(currentPageSize);
-        QPoint currentPos = this->pos();
-        int x = currentPos.x();
-        int y = currentPos.y();
-        this->widget2->move(x, y);
         this->widget2->setPalette(currentPal);
         this->widget2->show();
     } else {
@@ -378,19 +375,15 @@ void Widget::on_share_3_clicked()
 
 void Widget::comeBackToPrev()
 {
-
     this->widget2->hide();
-    QPoint currentPos = this->pos();
-    int x = currentPos.x();
-    int y = currentPos.y();
-    this->move(x, y);
     this->show();
 }
 
 void Widget::post_url(QString url)
 {
     qDebug() << "URL:" << url;
-
+    videoWidget->show();
+    connect(this,SIGNAL(video_url(QString)),videoWidget,SLOT(SetResource(QString)));
     emit video_url(url);
 }
 
@@ -418,20 +411,20 @@ void Widget::writeXmlToFile() {
 
     // 这里准备了一个示例数据列表，你可以使用自己的数据
     QList<QStringList> mediaItems = {
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-01", "F:/asmr/test.mp4"},
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-02", "F:/asmr/test.mp4"},
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-03", "F:/asmr/test.mp4"},
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-04", "F:/asmr/test.mp4"},
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-05", "F:/asmr/test.mp4"},
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-06", "F:/asmr/test.mp4"},
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-07", "F:/asmr/test.mp4"},
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-08", "F:/asmr/test.mp4"},
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-09", "F:/asmr/test.mp4"},
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-10", "F:/asmr/test.mp4"},
-        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-11", "F:/asmr/test.mp4"},
-        {"", "2023-12-12", "F:/asmr/test.mp4"},
-        {":/icon/user_img/user1.png", "2023-12-13", "F:/asmr/test.mp4"},
-        {":/icon/user_img/user1.png", "2023-12-13", "F:/asmr/test.mp4"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-01", "F:/FFOutput/test.wmv"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-02", "F:/FFOutput/test.wmv"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-03", "F:/FFOutput/test.wmv"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-04", "F:/FFOutput/test.wmv"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-05", "F:/FFOutput/test.wmv"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-06", "F:/FFOutput/test.wmv"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-07", "F:/FFOutput/test.wmv"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-08", "F:/FFOutput/test.wmv"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-09", "F:/FFOutput/test.wmv"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-10", "F:/FFOutput/test.wmv"},
+        {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-11", "F:/FFOutput/test.wmv"},
+        {"", "2023-12-12", "F:/FFOutput/test.wmv"},
+        {":/icon/user_img/user1.png", "2023-12-13", "F:/FFOutput/test.wmv"},
+        {":/icon/user_img/user1.png", "2023-12-13", "F:/FFOutput/test.wmv"},
     };
 
     for (const auto& item : mediaItems) {

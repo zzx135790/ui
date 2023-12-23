@@ -46,7 +46,7 @@ PlayerWidget::PlayerWidget(QWidget *parent): QWidget(parent), currentFormattedTi
     videoWidget->show();
     resize(500, 800);
 
-    qDebug()<<multiPlayer->position();
+//    qDebug()<<multiPlayer->position();
 }
 
 void PlayerWidget::Init()
@@ -61,7 +61,7 @@ void PlayerWidget::Init()
     totalTime_label = new QLabel("00:00");
 
     connect(btnWidget, SIGNAL(voice_button_clicked(int)),this,SLOT(voiceclick(int)));
-    connect(btnWidget, SIGNAL(paly_button_clicked()),this,SLOT(playclick()));
+    connect(btnWidget, SIGNAL(play_button_clicked()),this,SLOT(playclick()));
     connect(btnWidget, SIGNAL(pause_button_clicked()),this,SLOT(stopclick()));
     connect(btnWidget, SIGNAL(ahead_button_clicked()),this,SLOT(aheadclick()));
     connect(btnWidget, SIGNAL(back_button_clicked()),this,SLOT(backclick()));

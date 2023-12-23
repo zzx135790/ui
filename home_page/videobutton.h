@@ -9,13 +9,11 @@ class buttonWidget : public QWidget
 {
     Q_OBJECT
 
-    QLabel* speed_label;
-
-
-    QSlider* speed_slider;
+//    QLabel* speed_label;
+//    QSlider* speed_slider;
     QSlider* voice_slider;
 
-    QPushButton* paly_button;
+    QPushButton* play_button;
     QPushButton* pause_button;
     QPushButton* back_button;
     QPushButton* ahead_button;
@@ -23,19 +21,21 @@ class buttonWidget : public QWidget
     QPushButton* fullscreen_button;
     QPushButton* speed_button;
     QPushButton* voice_button;
+    QPushButton* speed_text_button;
 
     QVBoxLayout* mlayout;
     QHBoxLayout* hlayout1;
-    QHBoxLayout* hlayout2;
-    QHBoxLayout* hlayout3;
+//    QHBoxLayout* hlayout2;
+//    QHBoxLayout* hlayout3;
 
     QString resource;
-
 
     void ButtonStyleSet(QPushButton* button, QString IconPath);
     void Init();
 
     int voice_data;
+    int speed_data;
+    bool playStatus;
     bool mute;
 
 public:
@@ -45,7 +45,7 @@ public:
 
 signals:
 
-    void paly_button_clicked();
+    void play_button_clicked();
     void pause_button_clicked();
     void ahead_button_clicked();
     void back_button_clicked();
@@ -64,7 +64,7 @@ protected slots:
     void slot_File_button_clicked();
     void slot_fullscreen_button_clicked();
     void slot_voice_slider_valueChanged(int value);
-    void slot_speed_slider_valueChanged(int value);
+    void slot_speed_valueChanged();
 
 
 };
