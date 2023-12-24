@@ -11,10 +11,29 @@
 #include <QXmlStreamReader>
 #include <QSignalMapper>
 #include <QDebug>
-
+#include <QCoreApplication>
+#include <QMediaPlayer>
+#include <QVideoProbe>
+#include <QVideoFrame>
+#include <QImage>
+#include <QEventLoop>
+#include <QAbstractVideoSurface>
+#include <QVideoSurfaceFormat>
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
 QT_END_NAMESPACE
+
+class MyVideoSurface : public QAbstractVideoSurface {
+    Q_OBJECT
+public:
+    MyVideoSurface(QObject *parent = nullptr);
+    QList<QVideoFrame::PixelFormat> supportedPixelFormats(QAbstractVideoBuffer::HandleType handleType = QAbstractVideoBuffer::NoHandle) const override;
+    bool present(const QVideoFrame &frame) override;
+
+signals:
+    void frameAvailable(QImage frame);
+};
+
 
 class share;
 
@@ -46,18 +65,31 @@ public:
 
 signals:
     void video_url(const QString url,const QPalette currentPal,const QSize currentPageSize, const int x, const int y);
+    void list_change();
 
 private slots:
     void on_share_3_clicked();
     void comeBackToPrev(QWidget *close);
     void post_url(QString url,QSize currentPageSize);
+    void addVideo();
+    void saveCover(const QImage &frame);
     void handleClick();
+    void changeList();
+
 
 private:
     Ui::Widget *ui;
     PlayerWidget *videoWidget;
+    MyVideoSurface *surface;
+    QMediaPlayer *videoTest;
     QVector<video_item> *video_list;
     QVector<video_item> *show_list;
     QSignalMapper *signalMapper;
+
+    QString cover_path;
+    QString data_path;
+    QString video_path;
+    QString date;
+    QEventLoop loop;
 };
 #endif // WIDGET_H

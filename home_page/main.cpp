@@ -1,8 +1,9 @@
 #include "widget.h"
-#include "video.h"
+//#include "video.h"
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QImage>
+#include <QDir>
 
 int main(int argc, char *argv[])
 {
@@ -27,6 +28,8 @@ int main(int argc, char *argv[])
     pal.setColor(QPalette::Background, Qt::black);
     w.setAutoFillBackground(true);
     w.setPalette(pal);
+
+
 
     w.show();
 //    PlayerWidget video;

@@ -112,6 +112,7 @@ void PlayerWidget::SetResource(QString resource,QPalette currentPal,QSize curren
     this->setPalette(currentPal);
     this->move(x, y);
     multiPlayer->setMedia(url);
+    qDebug()<<multiPlayer->isVideoAvailable();
     multiPlayer->play();
     connect(multiPlayer, SIGNAL(positionChanged(qint64)), this, SLOT(VideoPosChange(qint64)));
 }

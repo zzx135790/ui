@@ -19,7 +19,8 @@ SOURCES += \
     videobutton.cpp \
     videobuttonslot.cpp \
     videoslot.cpp \
-    widget.cpp
+    widget.cpp \
+    widgetslots.cpp
 
 HEADERS += \
     share.h \
