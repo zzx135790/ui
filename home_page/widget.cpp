@@ -11,7 +11,7 @@ Widget::Widget(QWidget *parent)
 {
     ui->setupUi(this);
     this->widget2 =new share;
-    connect(this->widget2,SIGNAL(back()),this,SLOT(comeBackToPrev()));
+    connect(this->widget2,SIGNAL(back(QWidget*)),this,SLOT(comeBackToPrev(QWidget*)));
 
     connect(this, &Widget::video_url, this, &Widget::handleClick);
 
@@ -384,14 +384,14 @@ void Widget::on_share_3_clicked()
     }
 }
 
-void Widget::comeBackToPrev()
+void Widget::comeBackToPrev(QWidget *close)
 {
     // 设置 widget2 的位置为与 widget1 相同
-    QPoint currentPos = this->widget2->pos();
+    QPoint currentPos = close->pos();
     int x = currentPos.x();
     int y = currentPos.y();
-    this->widget2->move(x, y);
-    this->widget2->hide();
+    this->move(x, y);
+    close->close();
     this->show();
 }
 
@@ -404,6 +404,7 @@ void Widget::post_url(QString url,QSize currentPageSize)
     int x = currentPos.x();
     int y = currentPos.y();
     connect(this,SIGNAL(video_url(QString ,QPalette ,QSize,int,int)),videoWidget,SLOT(SetResource(QString,QPalette ,QSize,int,int)));
+    connect(videoWidget,SIGNAL(back(QWidget*)),this,SLOT(comeBackToPrev(QWidget*)));
     emit video_url(url,currentPal,currentPageSize,x,y);
 }
 
@@ -442,9 +443,9 @@ void Widget::writeXmlToFile() {
         {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-09", "/Users/pamper/Desktop"},
         {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-10", "/Users/pamper/Desktop"},
         {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-11", "F:/FFOutput/test.wmv"},
-        {"", "2023-12-12", "/Users/pamper/Desktop/test1.avi"},
-        {":/icon/user_img/user1.png", "2023-12-13", "/Users/pamper/Desktop/test1.avi"},
-        {":/icon/user_img/user1.png", "2023-12-13", "/Users/pamper/Desktop/test1.avi"},
+        {"", "2023-12-12", "C:/Users/zzx123/Downloads/test2.wmv"},
+        {":/icon/user_img/user1.png", "2023-12-13", "C:/Users/zzx123/Downloads/test2.wmv"},
+        {":/icon/user_img/user1.png", "2023-12-13", "C:/Users/zzx123/Downloads/test2.wmv"},
     };
 
     for (const auto& item : mediaItems) {

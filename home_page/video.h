@@ -24,6 +24,7 @@ class PlayerWidget : public QWidget
     QSlider* player_slider;
     QLabel* playerTime_label;
     QLabel* totalTime_label;
+    QPushButton *return_btn;
 
     QString totalFormattedTime;
     QString currentFormattedTime;
@@ -31,6 +32,8 @@ class PlayerWidget : public QWidget
     bool fullscreen;
     void Init();
 
+signals:
+    void back(QWidget *close);
 
 public:
     PlayerWidget(QWidget *parent = nullptr);
@@ -45,6 +48,7 @@ protected slots:
     void aheadclick();
     void backclick();
     void fullscreenClick();
+    void returnclick();
 
     void getduration(qint64 duration);
 

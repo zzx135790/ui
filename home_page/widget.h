@@ -49,7 +49,7 @@ signals:
 
 private slots:
     void on_share_3_clicked();
-    void comeBackToPrev();
+    void comeBackToPrev(QWidget *close);
     void post_url(QString url,QSize currentPageSize);
     void handleClick();
 

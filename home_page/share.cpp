@@ -222,6 +222,6 @@ share::~share()
 
 void share::on_return_2_clicked()
 {
-    emit this->back();
+    emit this->back(this);
 }
 

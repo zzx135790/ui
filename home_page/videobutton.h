@@ -30,7 +30,7 @@ class buttonWidget : public QWidget
 
     QString resource;
 
-    void ButtonStyleSet(QPushButton* button, QString IconPath);
+
     void Init();
 
     int voice_data;
@@ -41,6 +41,7 @@ class buttonWidget : public QWidget
 public:
 
     buttonWidget(QWidget *parent = nullptr);
+    void ButtonStyleSet(QPushButton* button, QString IconPath);
     ~buttonWidget();
 
 signals:

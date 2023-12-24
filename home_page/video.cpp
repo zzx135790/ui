@@ -13,10 +13,13 @@ PlayerWidget::PlayerWidget(QWidget *parent): QWidget(parent), currentFormattedTi
 
     QVBoxLayout* vlayout = new QVBoxLayout(this);
     QHBoxLayout* hlayout = new QHBoxLayout();
+    QHBoxLayout* toplayout = new QHBoxLayout();
+    QWidget *spacer = new QWidget(this);
 
     multiPlayer = new QMediaPlayer;
     videoWidget = new QVideoWidget(this);
     btnWidget= new buttonWidget(this);
+    return_btn = new QPushButton();
 
     multiPlayer->setPlaybackRate(1.0);
     multiPlayer->setVideoOutput(videoWidget);
@@ -28,6 +31,10 @@ PlayerWidget::PlayerWidget(QWidget *parent): QWidget(parent), currentFormattedTi
     hlayout->addWidget(player_slider,8);
     hlayout->addWidget(totalTime_label,1);
 
+    toplayout->addWidget(return_btn,1);
+    toplayout->addWidget(spacer,9);
+
+    vlayout->addLayout(toplayout);
     vlayout->addWidget(videoWidget, 8);
     vlayout->addLayout(hlayout,1);
     vlayout->addWidget(btnWidget, 1);
@@ -79,8 +86,12 @@ void PlayerWidget::Init()
         );
 
     playerTime_label = new QLabel("00:00");
+    playerTime_label->setStyleSheet("color: white;");
     totalTime_label = new QLabel("00:00");
+    totalTime_label->setStyleSheet("color: white;");
+    btnWidget->ButtonStyleSet(return_btn,":/button/icon/return.png");
 
+    connect(return_btn, SIGNAL(clicked()),this,SLOT(returnclick()));
     connect(btnWidget, SIGNAL(voice_button_clicked(int)),this,SLOT(voiceclick(int)));
     connect(btnWidget, SIGNAL(play_button_clicked()),this,SLOT(playclick()));
     connect(btnWidget, SIGNAL(pause_button_clicked()),this,SLOT(stopclick()));

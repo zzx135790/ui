@@ -11,5 +11,6 @@
         <file>icon/mid_voice.png</file>
         <file>icon/low_voice.png</file>
         <file>icon/novoice.png</file>
+        <file>icon/return.png</file>
     </qresource>
 </RCC>

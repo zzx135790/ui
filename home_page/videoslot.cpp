@@ -26,6 +26,9 @@ void PlayerWidget::voicechange(int voice)
     multiPlayer->setVolume(voice);
 }
 
+void PlayerWidget::returnclick(){
+    emit back(this);
+}
 
 void PlayerWidget::playclick()
 {

@@ -16,7 +16,7 @@ public:
     ~share();
 
 signals:
-        void back();
+        void back(QWidget *close);
 
 private slots:
 
