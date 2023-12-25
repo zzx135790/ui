@@ -19,6 +19,10 @@
 #include <QEventLoop>
 #include <QAbstractVideoSurface>
 #include <QVideoSurfaceFormat>
+#include <QPainter>
+#include <QPixmap>
+#include <QTemporaryFile>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
 QT_END_NAMESPACE

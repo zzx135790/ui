@@ -217,23 +217,84 @@ void Widget::changeList(){
                 // 在这里处理按钮点击事件，使用video对象的信息
                 post_url(url,currentPageSize);
             });
+
+            QPixmap originalPixmap(imagePath);
+
+            // 需要的按钮高度
+            int targetHeight = 200; // 设置你期望的按钮高度
+
+            // 按照高度等比例缩放图片
+            QPixmap scaledPixmap = originalPixmap.scaledToHeight(targetHeight);
+
+
+//            // 保存缩放后的图片到临时文件
+//            QTemporaryFile tempFile;
+//            tempFile.open();
+//            scaledPixmap.save(&tempFile, "PNG");
+//            QString imagePath2 = tempFile.fileName();
+//            tempFile.close();
+
+//            if (imagePath.isEmpty()) {
+//                // 如果未能生成文件名，则手动创建临时文件名
+//                QString tempPath = QDir::tempPath() + "/tempImage1.png";
+//                QTemporaryFile::createLocalFile(tempPath); // 创建临时文件
+//                imagePath2 = tempPath;
+//            }
+
+
+            QString rootDirPath = QCoreApplication::applicationDirPath();
+
+            // 构建相对于根目录的临时文件夹路径
+            QString tempDirPath = rootDirPath + "/temp"; // 根据需要调整路径
+
+            QDir tempDir(tempDirPath);
+
+            qDebug() << tempDirPath ;
+
+            if (!tempDir.exists()) {
+                qDebug() << "Temp directory does not exist!";
+                // 尝试创建临时文件夹
+                if (!tempDir.mkpath(".")) {
+                    qDebug() << "Failed to create temp directory!";
+                    // 处理无法创建临时文件夹的情况
+                    return ;
+                }
+            }
+
+            // 在指定的临时文件夹中创建临时文件
+            QTemporaryFile tempFile(tempDir.path() + "/tempImage.png");
+
+            if (!scaledPixmap.save(tempDir.path() + "/tempImage.png")) {
+                qDebug() << "Failed to save image!";
+                // 处理保存失败的情况
+                return ;
+            } else {
+                qDebug() << "Image saved successfully to:" << tempDir.path() + "/tempImage.png";
+            }
+
+
+
+
             QString buttonStyleSheet = QString("QPushButton { "
                                                "border: 2px dashed #696666;"
                                                "border-radius: 10px;"
                                                "background-image: url(%1); " // %1 是参数占位符
+                                               "background-position: center;"
                                                "background-position: center; "
                                                "background-repeat: no-repeat; "
                                                "background-clip: border; "
                                                "border-radius: 10px; "
                                                "}"
                                                "QPushButton:hover {"
+                                               "background-image: url(%1); " // %1 是参数占位符
+                                               "background-position: center;"
                                                "border: 2px solid #696666;" // 悬停状态下修改边框颜色
                                                "border-radius: 10px;"
                                                "}"
                                                "QPushButton:pressed {"
                                                "border: 3px solid #696666;" // 悬停状态下修改边框颜色
                                                "border-radius: 10px;"
-                                               "}").arg(imagePath);
+                                               "}").arg(tempDir.path() + "/tempImage.png");
 
             buttons_2[button_2_index]->setStyleSheet(buttonStyleSheet);
         }
@@ -420,43 +481,4 @@ void Widget::writeXmlToFile() {
     file.close();
     qDebug() << "Write to the file sucssessfully, performing the operation...";
 
-
-
-
-//    QXmlStreamWriter xmlWriter(&file);
-//    xmlWriter.setAutoFormatting(true); // 可选，设置自动格式化以便更易读
-
-//    xmlWriter.writeStartDocument();
-//    xmlWriter.writeStartElement("mediaItems");
-
-//    // 这里准备了一个示例数据列表，你可以使用自己的数据
-//    QList<QStringList> mediaItems = {
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-11", "/Users/pamper/Desktop/test1/avi"},
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-12", "/Users/pamper/Desktop"},
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-13", "/Users/pamper/Desktop"},
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-14", "/Users/pamper/Desktop"},
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-15", "/Users/pamper/Desktop"},
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-16", "/Users/pamper/Desktop"},
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-17", "/Users/pamper/Desktop"},
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-18", "/Users/pamper/Desktop"},
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-19", "/Users/pamper/Desktop"},
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-20", "/Users/pamper/Desktop"},
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-21", "F:/FFOutput/test.wmv"},
-//                                     {"", "2023-12-22", "C:/Users/zzx123/Downloads/test2.wmv"},
-//                                     {":/icon/user_img/user1.png", "2023-12-23", "C:/Users/zzx123/Downloads/test2.wmv"},
-//                                     {":/icon/user_img/user1.png", "2023-12-24", "C:/Users/zzx123/Downloads/test2.wmv"},
-//                                     };
-
-//    for (const auto& item : mediaItems) {
-//        xmlWriter.writeStartElement("mediaItem");
-//        xmlWriter.writeTextElement("imagePath", item.at(0));
-//        xmlWriter.writeTextElement("createTime", item.at(1));
-//        xmlWriter.writeTextElement("videoPath", item.at(2));
-//        xmlWriter.writeEndElement(); // mediaItem
-//    }
-
-//    xmlWriter.writeEndElement(); // mediaItems
-//    xmlWriter.writeEndDocument();
-
-//    file.close(); // 关闭文件
 }
