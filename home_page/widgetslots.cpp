@@ -6,6 +6,22 @@
 
 void Widget::changeList(){
 
+    QString button_sheet_one = "QPushButton {"
+                               "border: 2px dashed #696666;"
+                               "border-radius: 10px;"
+                               "background-color: #232323;"
+                               "}"
+                               "QPushButton:hover {"
+                               "border: 2px dashed #696666;" // 悬停状态下修改边框颜色
+                               "border-radius: 10px;"
+                               "background-color: #3C3C3C;"
+                               "}"
+                               "QPushButton:pressed {"
+                               "background-color: #696666;" // 按下状态下修改背景颜色
+                               "border-radius: 10px;"
+                               "background-color: #191919;"
+                               "}";
+
     QString button_sheet_two = "QPushButton {"
                                "border: 2px solid #FAF9F6;" // 普通状态下的边框样式
                                "border-radius: 8px;" // 普通状态下的边框圆角
@@ -103,11 +119,9 @@ void Widget::changeList(){
         QPushButton* button = buttons[buttonIndex];
 
 
-
-        if(video.get_img() != NULL && buttonIndex < 3){
+        if(video.get_img() != NULL){
 
             QString url = video.get_URL();
-            QPalette currentPal(this->palette());
             QSize currentPageSize = this->size();
 
             connect(button, &QPushButton::clicked, [this, url,currentPageSize]() {
@@ -128,34 +142,11 @@ void Widget::changeList(){
 
             button->setStyleSheet(button_sheet_five);
         }
-        else if(video.get_img() == NULL && buttonIndex < 3){
-
+        else if(video.get_img() == NULL && buttonIndex == 0){
 
             // 从资源文件加载图标
-            QIcon icon(":/icon/lock.png");
-
-            // 设置按钮的大小和图标
-            icon = icon.pixmap(QSize(16, 16));
-            button->setIcon(icon);
-            button->setIconSize(QSize(16, 16));
-
-            button->setStyleSheet(button_sheet_five);
-        }
-        else if(video.get_img() != NULL && buttonIndex >= 3){
-
-            QString url = video.get_URL();
-            QPalette currentPal(this->palette());
-            QSize currentPageSize = this->size();
-            connect(button, &QPushButton::clicked, [this, url,currentPageSize]() {
-                // 在这里处理按钮点击事件，使用video对象的信息
-                post_url(url,currentPageSize);
-            });
-
-            QString day = video.get_Time().mid(8, 2); // 从索引为8的位置开始，截取长度为2的子字符串
-            QString iconPath = QString(":/icon/%1.png").arg(day);
-            // 从资源文件加载图标
-            QIcon icon(iconPath);
-
+            QIcon icon(":/icon/plus.png");
+            connect(button,SIGNAL(clicked()),this,SLOT(addVideo()));
             // 设置按钮的大小和图标
             icon = icon.pixmap(QSize(16, 16));
             button->setIcon(icon);
@@ -192,10 +183,88 @@ void Widget::changeList(){
         }
     }
 
+    for (auto it = show_list->begin(); it != show_list->end();) {
+        if (it->get_img().isEmpty()) {
+            it = show_list->erase(it); // 删除满足条件的对象
+        } else {
+            ++it;
+        }
+    }
+
 
     if (show_list->size() > 3) {
         show_list->erase(show_list->begin() + 3, show_list->end()); // 删除从第四项开始到末尾的所有项
     }
+
+
+    QPushButton *lock_1 = findChild<QPushButton*>("plus");
+    QPushButton *lock_2 = findChild<QPushButton*>("lock_1");
+    QPushButton *lock_3 = findChild<QPushButton*>("lock_2");
+
+    QList<QPushButton*> buttons_2 = {
+        lock_1,lock_2,lock_3
+    };
+
+    int button_2_index = 0;
+
+    for (auto& video : *show_list) {
+        QString img = video.get_img();
+        if (img != NULL){
+            QString imagePath = img;
+            QString url = video.get_URL();
+            QSize currentPageSize = this->size();
+            connect(buttons_2[button_2_index], &QPushButton::clicked, [this, url,currentPageSize]() {
+                // 在这里处理按钮点击事件，使用video对象的信息
+                post_url(url,currentPageSize);
+            });
+            QString buttonStyleSheet = QString("QPushButton { "
+                                               "border: 2px dashed #696666;"
+                                               "border-radius: 10px;"
+                                               "background-image: url(%1); " // %1 是参数占位符
+                                               "background-position: center; "
+                                               "background-repeat: no-repeat; "
+                                               "background-clip: border; "
+                                               "border-radius: 10px; "
+                                               "}"
+                                               "QPushButton:hover {"
+                                               "border: 2px solid #696666;" // 悬停状态下修改边框颜色
+                                               "border-radius: 10px;"
+                                               "}"
+                                               "QPushButton:pressed {"
+                                               "border: 3px solid #696666;" // 悬停状态下修改边框颜色
+                                               "border-radius: 10px;"
+                                               "}").arg(imagePath);
+
+            buttons_2[button_2_index]->setStyleSheet(buttonStyleSheet);
+        }
+        else{
+            buttons_2[button_2_index]->setStyleSheet(button_sheet_one);
+            // 从资源文件加载图标
+            QIcon icon(":/icon/plus.png");
+
+            // 设置按钮的大小和图标
+            icon = icon.pixmap(QSize(40, 40));
+            buttons_2[button_2_index]->setIcon(icon);
+            buttons_2[button_2_index]->setIconSize(QSize(40, 40));
+
+        }
+        button_2_index += 1;
+    }
+
+    if(button_2_index < 3){
+        for (int i = button_2_index; i < 3; ++i) {
+            // 从资源文件加载图标
+            QIcon icon(":/icon/lock.png");
+            QPushButton* button = buttons_2[i];
+            // 设置按钮的大小和图标
+            icon = icon.pixmap(QSize(40, 40));
+            button->setIcon(icon);
+            button->setIconSize(QSize(40, 40));
+
+            button->setStyleSheet(button_sheet_one);
+        }
+    }
+
 
     for (video_item& video : *show_list) {
         qDebug() << "Title:" << video.get_img() << "Date:" << video.get_Time();

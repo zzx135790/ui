@@ -219,46 +219,6 @@ Widget::Widget(QWidget *parent)
     emit list_change();
 
 
-    QPushButton *lock_1 = findChild<QPushButton*>("plus");
-    QPushButton *lock_2 = findChild<QPushButton*>("lock_1");
-    QPushButton *lock_3 = findChild<QPushButton*>("lock_2");
-
-    QList<QPushButton*> buttons_2 = {
-        lock_1,lock_2,lock_3
-    };
-
-    int button_2_index = 0;
-
-    for (auto& video : *show_list) {
-        QString img = video.get_img();
-        if (img != NULL){
-            QString imagePath = img;
-            QString buttonStyleSheet = QString("QPushButton { "
-                                               "border: 2px solid #696666;"
-                                               "border-radius: 10px;"
-                                               "background-image: url(%1); " // %1 是参数占位符
-                                               "background-position: center; "
-                                               "background-repeat: no-repeat; "
-                                               "background-clip: border; "
-                                               "border-radius: 10px; "
-                                               "}").arg(imagePath);
-
-            buttons_2[button_2_index]->setStyleSheet(buttonStyleSheet);
-        }
-        else{
-            buttons_2[button_2_index]->setStyleSheet(button_sheet_one);
-            // 从资源文件加载图标
-            QIcon icon(":/icon/plus.png");
-
-            // 设置按钮的大小和图标
-            icon = icon.pixmap(QSize(40, 40));
-            buttons_2[button_2_index]->setIcon(icon);
-            buttons_2[button_2_index]->setIconSize(QSize(40, 40));
-
-        }
-        button_2_index += 1;
-    }
-
 
 
 
