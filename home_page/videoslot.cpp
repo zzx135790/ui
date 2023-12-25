@@ -27,6 +27,7 @@ void PlayerWidget::voicechange(int voice)
 }
 
 void PlayerWidget::returnclick(){
+    multiPlayer->stop();
     emit back(this);
 }
 

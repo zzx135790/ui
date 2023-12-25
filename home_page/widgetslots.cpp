@@ -260,8 +260,8 @@ void Widget::changeList(){
             } else {
                 qDebug() << "Image saved successfully to:" << tempDir.path() + "/tempImage.png";
             }
-
-
+            buttons_2[button_2_index]->setStyleSheet("");
+            buttons_2[button_2_index]->setIcon(QIcon()); // 或者传入空的 QIcon
             QString buttonStyleSheet = QString("QPushButton { "
                                                "border: 2px dashed #696666;"
                                                "border-radius: 10px;"
@@ -283,7 +283,7 @@ void Widget::changeList(){
                                                "border-radius: 10px;"
                                                "}").arg(tempDir.path() + "/tempImage.png");
 
-            buttons_2[button_2_index]->setStyleSheet(buttonStyleSheet);
+            buttons_2[button_2_index]->setStyleSheet(button_sheet_one);
         }
         else{
             buttons_2[button_2_index]->setStyleSheet(button_sheet_one);
@@ -312,6 +312,8 @@ void Widget::changeList(){
             button->setStyleSheet(button_sheet_one);
         }
     }
+
+    this->update();
 
 
     for (video_item& video : *show_list) {
@@ -362,6 +364,7 @@ void Widget::addVideo(){
             }
         }
         emit list_change();
+        this->update();
     }
 
 }

@@ -222,6 +222,7 @@ Widget::Widget(QWidget *parent)
 
 
 
+
     videoWidget = new PlayerWidget();
     videoTest = new QMediaPlayer();
     surface = new MyVideoSurface();
