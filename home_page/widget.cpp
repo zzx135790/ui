@@ -44,60 +44,60 @@ Widget::Widget(QWidget *parent)
                        "background-color: #232323;"
                        "}"
                        "QPushButton:hover {"
-                       "border: 2px dashed #696666;" // 悬停状态下修改边框颜色
+                       "border: 2px dashed #696666;"
                        "border-radius: 10px;"
                        "background-color: #3C3C3C;"
                        "}"
                        "QPushButton:pressed {"
-                       "background-color: #696666;" // 按下状态下修改背景颜色
+                       "background-color: #696666;"
                        "border-radius: 10px;"
                        "background-color: #191919;"
                                "}";
 
     QString button_sheet_two = "QPushButton {"
-                               "border: 2px solid #FAF9F6;" // 普通状态下的边框样式
-                               "border-radius: 8px;" // 普通状态下的边框圆角
+                               "border: 2px solid #FAF9F6;"
+                               "border-radius: 8px;"
                                "color: #ffffff"
                                "}"
                                "QPushButton:hover {"
-                               "border-color: #FAF9F6;" // 悬停状态下修改边框颜色
+                               "border-color: #FAF9F6;"
                                "background-color: #3C3C3C;"
                                "color: #ffffff"
                                "}"
                                "QPushButton:pressed {"
-                               "border-width: 3px;" // 按下状态下增加边框宽度
+                               "border-width: 3px;"
                                "background-color: #191919;"
                                "color: #ffffff"
                                "}";
 
 
     QString button_sheet_five = "QPushButton {"
-                               "border: 2px solid #539ec6;" // 普通状态下的边框样式
-                               "border-radius: 8px;" // 普通状态下的边框圆角
+                               "border: 2px solid #539ec6;"
+                               "border-radius: 8px;"
                                "color: #ffffff"
                                "}"
                                "QPushButton:hover {"
-                               "border-color: #0b6a9b;" // 悬停状态下修改边框颜色
+                               "border-color: #0b6a9b;"
                                "background-color: #3C3C3C;"
                                "color: #ffffff"
                                "}"
                                "QPushButton:pressed {"
-                               "border-width: 3px;" // 按下状态下增加边框宽度
+                               "border-width: 3px;"
                                "background-color: #191919;"
                                "color: #ffffff"
                                "}";
 
     QString button_sheet_three = "QPushButton {"
-                                 "border-radius: 8px;" // 普通状态下的边框圆角
+                                 "border-radius: 8px;"
                                  "background-color: #232323;"
                                  "}"
                                  "QPushButton:hover {"
-                                 "border-color: #FAF9F6;" // 悬停状态下修改边框颜色
+                                 "border-color: #FAF9F6;"
                                  "background-color: #3C3C3C;"
                                  "color: #ffffff"
                                  "}"
                                  "QPushButton:pressed {"
-                                 "border-width: 3px;" // 按下状态下增加边框宽度
+                                 "border-width: 3px;"
                                  "background-color: #191919;"
                                  "color: #ffffff"
                                  "}";
@@ -155,11 +155,12 @@ Widget::Widget(QWidget *parent)
     QDir cover(cover_path);
     QDir vdo(video_path);
     if (!file_org.exists()||!cover.exists()||!vdo.exists()) {
-        // 文件不存在，执行你的函数或操作
+        // File does not exist, perform your function or operation
         writeXmlToFile();
         qDebug() << "File doesn't exist, performing the operation...";
     } else {
-        // 文件存在，不执行操作
+        // If the file exists, no operation is performed
+
         qDebug() << "File already exists, skipping the operation...";
     }
 
@@ -167,7 +168,7 @@ Widget::Widget(QWidget *parent)
 
 
 
-    //读取文件内容
+    //Read file contents
 
     QFile file(data_path);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -245,32 +246,34 @@ video_item::video_item(QString url, QString img, QString t) {
     time = t;
 }
 
-// 析构函数的实现
+
 video_item::~video_item() {
-    // 在这里进行清理工作，如果有的话
+
 }
 
 
-// 获取 URL 的函数实现
+// Get URL function implementation
 QString video_item::get_URL() {
     return URL;
 }
 
-// 获取图像的函数实现
+// Get image function implementation
 QString video_item::get_img() {
     return image;
 }
 
-// 获取时间的函数实现
+// Get time function implementation
 QString video_item::get_Time() {
     return time;
 }
 
-// 更改时间
+// Change picture
 void video_item::set_img( QString image) {
     this->image = image;
 }
 
+
+// Change URL
 void video_item::set_URL( QString url) {
     this->URL = url;
 }
