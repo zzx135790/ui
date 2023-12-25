@@ -91,27 +91,15 @@ void Widget::changeList(){
         }
     }
 
-    for (video_item& video : *video_list) {
-        qDebug() << "Title:" << video.get_img() << "Date:" << video.get_Time();
-    }
-
-
-
-
-
-
-    std::reverse(show_list->begin(), show_list->end());
+//    std::reverse(show_list->begin(), show_list->end());
 
 
     int buttonIndex = 0;
-
     for (auto& video : *show_list) {
 
         signalMapper = new QSignalMapper(this);
 
         QPushButton* button = buttons[buttonIndex];
-
-
 
 
 
@@ -189,7 +177,7 @@ void Widget::changeList(){
         buttonIndex += 1;
     }
 
-    if(buttonIndex < 13){
+    if(buttonIndex < 14){
         for (int i = buttonIndex; i < 14; ++i) {
             // 从资源文件加载图标
             QIcon icon(":/icon/plus.png");
@@ -209,6 +197,10 @@ void Widget::changeList(){
     }
 
     for (video_item& video : *show_list) {
+        qDebug() << "Title:" << video.get_img() << "Date:" << video.get_Time();
+    }
+
+    for (video_item& video : *video_list) {
         qDebug() << "Title:" << video.get_img() << "Date:" << video.get_Time();
     }
 

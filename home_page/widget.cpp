@@ -165,6 +165,8 @@ Widget::Widget(QWidget *parent)
 
 
 
+
+
     //读取文件内容
 
     QFile file(data_path);
@@ -227,7 +229,7 @@ Widget::Widget(QWidget *parent)
 
     int button_2_index = 0;
 
-    for (auto& video : *video_list) {
+    for (auto& video : *show_list) {
         QString img = video.get_img();
         if (img != NULL){
             QString imagePath = img;
