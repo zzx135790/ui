@@ -66,6 +66,7 @@ void Widget::changeList(){
     // 获取今天的日期
     QDate currentDate = QDate::currentDate();
 
+    show_list->clear();
     // 生成向前推14天的日期
     for (int i = 0; i < 14; ++i) {
         QDate date = currentDate.addDays(-i);
