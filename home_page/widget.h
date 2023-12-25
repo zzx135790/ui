@@ -74,7 +74,7 @@ signals:
 private slots:
     void on_share_3_clicked();
     void comeBackToPrev(QWidget *close);
-    void post_url(QString url,QSize currentPageSize);
+    void post_url(QString url);
     void addVideo();
     void saveCover(const QImage &frame);
     void handleClick();

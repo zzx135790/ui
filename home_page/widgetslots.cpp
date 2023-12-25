@@ -122,13 +122,12 @@ void Widget::changeList(){
         if(video.get_img() != NULL){
 
             QString url = video.get_URL();
-            QSize currentPageSize = this->size();
 
             disconnect(button, &QPushButton::clicked, 0, 0);
 
-            connect(button, &QPushButton::clicked, [this, url,currentPageSize]() {
+            connect(button, &QPushButton::clicked, [this, url]() {
                 // 在这里处理按钮点击事件，使用video对象的信息
-                post_url(url,currentPageSize);
+                post_url(url);
             });
 
 
@@ -216,11 +215,10 @@ void Widget::changeList(){
         if (img != NULL){
             QString imagePath = img;
             QString url = video.get_URL();
-            QSize currentPageSize = this->size();
             disconnect(buttons_2[button_2_index], &QPushButton::clicked, 0, 0);
-            connect(buttons_2[button_2_index], &QPushButton::clicked, [this, url,currentPageSize]() {
+            connect(buttons_2[button_2_index], &QPushButton::clicked, [this, url]() {
                 // 在这里处理按钮点击事件，使用video对象的信息
-                post_url(url,currentPageSize);
+                post_url(url);
             });
 
             QPixmap originalPixmap(imagePath);
@@ -283,7 +281,7 @@ void Widget::changeList(){
                                                "border-radius: 10px;"
                                                "}").arg(tempDir.path() + "/tempImage.png");
 
-            buttons_2[button_2_index]->setStyleSheet(button_sheet_one);
+            buttons_2[button_2_index]->setStyleSheet(buttonStyleSheet);
         }
         else{
             buttons_2[button_2_index]->setStyleSheet(button_sheet_one);
@@ -407,12 +405,13 @@ void Widget::comeBackToPrev(QWidget *close)
     this->show();
 }
 
-void Widget::post_url(QString url,QSize currentPageSize)
+void Widget::post_url(QString url)
 {
     qDebug() << "URL:" << url;
     videoWidget->show();
     QPalette currentPal(this->palette());
     QPoint currentPos = this->pos();
+    QSize currentPageSize = this->size();
     int x = currentPos.x();
     int y = currentPos.y();
     connect(this,SIGNAL(video_url(QString ,QPalette ,QSize,int,int)),videoWidget,SLOT(SetResource(QString,QPalette ,QSize,int,int)));

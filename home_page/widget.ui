@@ -118,7 +118,7 @@
            <property name="font">
             <font>
              <family>Arial Rounded MT Bold</family>
-             <pointsize>20</pointsize>
+             <pointsize>18</pointsize>
              <bold>true</bold>
             </font>
            </property>
@@ -249,7 +249,7 @@
          <property name="font">
           <font>
            <family>Arial Rounded MT Bold</family>
-           <pointsize>22</pointsize>
+           <pointsize>20</pointsize>
           </font>
          </property>
          <property name="styleSheet">
@@ -284,7 +284,7 @@
          <property name="font">
           <font>
            <family>Arial Rounded MT Bold</family>
-           <pointsize>13</pointsize>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="styleSheet">
@@ -492,7 +492,7 @@ background-color:#232323;</string>
          <property name="font">
           <font>
            <family>Arial Rounded MT Bold</family>
-           <pointsize>20</pointsize>
+           <pointsize>16</pointsize>
           </font>
          </property>
          <property name="styleSheet">
@@ -521,7 +521,7 @@ background-color:#232323;</string>
          <property name="font">
           <font>
            <family>Arial Rounded MT Bold</family>
-           <pointsize>14</pointsize>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="styleSheet">
@@ -577,7 +577,7 @@ background-color:#232323;</string>
             <property name="font">
              <font>
               <family>Arial Rounded MT Bold</family>
-              <pointsize>16</pointsize>
+              <pointsize>14</pointsize>
              </font>
             </property>
             <property name="styleSheet">
@@ -1161,13 +1161,14 @@ border-radius:8px</string>
             <property name="font">
              <font>
               <family>Arial Rounded MT Bold</family>
-              <pointsize>20</pointsize>
+              <pointsize>16</pointsize>
              </font>
             </property>
             <property name="styleSheet">
              <string notr="true">border:2px solid #ffffff;
 border-radius:5px;
 color:#ffffff;
+padding: 10px;
 </string>
             </property>
             <property name="text">
@@ -1296,7 +1297,7 @@ border-radius:50px
        <property name="font">
         <font>
          <family>Arial Rounded MT Bold</family>
-         <pointsize>16</pointsize>
+         <pointsize>14</pointsize>
         </font>
        </property>
        <property name="styleSheet">

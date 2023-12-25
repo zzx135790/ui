@@ -54,7 +54,7 @@
          <property name="font">
           <font>
            <family>Arial Rounded MT Bold</family>
-           <pointsize>20</pointsize>
+           <pointsize>18</pointsize>
            <bold>true</bold>
           </font>
          </property>
@@ -214,6 +214,7 @@ border-radius:10px;</string>
            <property name="font">
             <font>
              <family>Arial Rounded MT Bold</family>
+             <pointsize>11</pointsize>
              <bold>true</bold>
             </font>
            </property>
@@ -230,6 +231,7 @@ border-radius:10px;</string>
            <property name="font">
             <font>
              <family>Arial Rounded MT Bold</family>
+             <pointsize>11</pointsize>
             </font>
            </property>
            <property name="styleSheet">
@@ -314,6 +316,7 @@ border-radius:5px;</string>
          <property name="font">
           <font>
            <family>Arial Rounded MT Bold</family>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="styleSheet">
@@ -329,6 +332,7 @@ border-radius:5px;</string>
          <property name="font">
           <font>
            <family>Arial Rounded MT Bold</family>
+           <pointsize>11</pointsize>
            <bold>true</bold>
           </font>
          </property>
@@ -391,7 +395,7 @@ Try inviting your contacts.</string>
            <property name="font">
             <font>
              <family>Arial Rounded MT Bold</family>
-             <pointsize>15</pointsize>
+             <pointsize>11</pointsize>
              <bold>true</bold>
             </font>
            </property>
@@ -414,6 +418,7 @@ Try inviting your contacts.</string>
            <property name="font">
             <font>
              <family>Arial Rounded MT Bold</family>
+             <pointsize>11</pointsize>
             </font>
            </property>
            <property name="styleSheet">
@@ -456,7 +461,7 @@ Try inviting your contacts.</string>
          <property name="font">
           <font>
            <family>Arial Rounded MT Bold</family>
-           <pointsize>15</pointsize>
+           <pointsize>13</pointsize>
            <bold>true</bold>
           </font>
          </property>
@@ -516,7 +521,7 @@ border-radius:5px;</string>
            <property name="font">
             <font>
              <family>Arial Rounded MT Bold</family>
-             <pointsize>15</pointsize>
+             <pointsize>11</pointsize>
              <bold>true</bold>
             </font>
            </property>
@@ -539,6 +544,7 @@ border-radius:5px;</string>
            <property name="font">
             <font>
              <family>Arial Rounded MT Bold</family>
+             <pointsize>11</pointsize>
             </font>
            </property>
            <property name="styleSheet">
@@ -581,7 +587,7 @@ border-radius:5px;</string>
          <property name="font">
           <font>
            <family>Arial Rounded MT Bold</family>
-           <pointsize>15</pointsize>
+           <pointsize>13</pointsize>
            <bold>true</bold>
           </font>
          </property>
@@ -641,7 +647,7 @@ border-radius:5px;</string>
            <property name="font">
             <font>
              <family>Arial Rounded MT Bold</family>
-             <pointsize>15</pointsize>
+             <pointsize>11</pointsize>
              <bold>true</bold>
             </font>
            </property>
@@ -664,6 +670,7 @@ border-radius:5px;</string>
            <property name="font">
             <font>
              <family>Arial Rounded MT Bold</family>
+             <pointsize>11</pointsize>
             </font>
            </property>
            <property name="styleSheet">
@@ -706,7 +713,7 @@ border-radius:5px;</string>
          <property name="font">
           <font>
            <family>Arial Rounded MT Bold</family>
-           <pointsize>15</pointsize>
+           <pointsize>13</pointsize>
            <bold>true</bold>
           </font>
          </property>
@@ -766,7 +773,7 @@ border-radius:5px;</string>
            <property name="font">
             <font>
              <family>Arial Rounded MT Bold</family>
-             <pointsize>15</pointsize>
+             <pointsize>11</pointsize>
              <bold>true</bold>
             </font>
            </property>
@@ -789,6 +796,7 @@ border-radius:5px;</string>
            <property name="font">
             <font>
              <family>Arial Rounded MT Bold</family>
+             <pointsize>11</pointsize>
             </font>
            </property>
            <property name="styleSheet">
@@ -831,7 +839,7 @@ border-radius:5px;</string>
          <property name="font">
           <font>
            <family>Arial Rounded MT Bold</family>
-           <pointsize>15</pointsize>
+           <pointsize>13</pointsize>
            <bold>true</bold>
           </font>
          </property>
@@ -891,7 +899,7 @@ border-radius:5px;</string>
            <property name="font">
             <font>
              <family>Arial Rounded MT Bold</family>
-             <pointsize>15</pointsize>
+             <pointsize>11</pointsize>
              <bold>true</bold>
             </font>
            </property>
@@ -914,6 +922,7 @@ border-radius:5px;</string>
            <property name="font">
             <font>
              <family>Arial Rounded MT Bold</family>
+             <pointsize>11</pointsize>
             </font>
            </property>
            <property name="styleSheet">
@@ -956,7 +965,7 @@ border-radius:5px;</string>
          <property name="font">
           <font>
            <family>Arial Rounded MT Bold</family>
-           <pointsize>15</pointsize>
+           <pointsize>13</pointsize>
            <bold>true</bold>
           </font>
          </property>
@@ -1016,7 +1025,7 @@ border-radius:5px;</string>
            <property name="font">
             <font>
              <family>Arial Rounded MT Bold</family>
-             <pointsize>15</pointsize>
+             <pointsize>11</pointsize>
              <bold>true</bold>
             </font>
            </property>
@@ -1039,6 +1048,7 @@ border-radius:5px;</string>
            <property name="font">
             <font>
              <family>Arial Rounded MT Bold</family>
+             <pointsize>11</pointsize>
             </font>
            </property>
            <property name="styleSheet">
@@ -1081,7 +1091,7 @@ border-radius:5px;</string>
          <property name="font">
           <font>
            <family>Arial Rounded MT Bold</family>
-           <pointsize>15</pointsize>
+           <pointsize>13</pointsize>
            <bold>true</bold>
           </font>
          </property>
