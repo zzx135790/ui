@@ -124,10 +124,13 @@ void Widget::changeList(){
             QString url = video.get_URL();
             QSize currentPageSize = this->size();
 
+            disconnect(button, &QPushButton::clicked, 0, 0);
+
             connect(button, &QPushButton::clicked, [this, url,currentPageSize]() {
                 // 在这里处理按钮点击事件，使用video对象的信息
                 post_url(url,currentPageSize);
             });
+
 
             QString day = video.get_Time().mid(8, 2); // 从索引为8的位置开始，截取长度为2的子字符串
             QString iconPath = QString(":/icon/%1.png").arg(day);
@@ -146,6 +149,7 @@ void Widget::changeList(){
 
             // 从资源文件加载图标
             QIcon icon(":/icon/plus.png");
+            disconnect(button, &QPushButton::clicked, 0, 0);
             connect(button,SIGNAL(clicked()),this,SLOT(addVideo()));
             // 设置按钮的大小和图标
             icon = icon.pixmap(QSize(16, 16));
@@ -213,6 +217,7 @@ void Widget::changeList(){
             QString imagePath = img;
             QString url = video.get_URL();
             QSize currentPageSize = this->size();
+            disconnect(buttons_2[button_2_index], &QPushButton::clicked, 0, 0);
             connect(buttons_2[button_2_index], &QPushButton::clicked, [this, url,currentPageSize]() {
                 // 在这里处理按钮点击事件，使用video对象的信息
                 post_url(url,currentPageSize);
@@ -225,22 +230,6 @@ void Widget::changeList(){
 
             // 按照高度等比例缩放图片
             QPixmap scaledPixmap = originalPixmap.scaledToHeight(targetHeight);
-
-
-//            // 保存缩放后的图片到临时文件
-//            QTemporaryFile tempFile;
-//            tempFile.open();
-//            scaledPixmap.save(&tempFile, "PNG");
-//            QString imagePath2 = tempFile.fileName();
-//            tempFile.close();
-
-//            if (imagePath.isEmpty()) {
-//                // 如果未能生成文件名，则手动创建临时文件名
-//                QString tempPath = QDir::tempPath() + "/tempImage1.png";
-//                QTemporaryFile::createLocalFile(tempPath); // 创建临时文件
-//                imagePath2 = tempPath;
-//            }
-
 
             QString rootDirPath = QCoreApplication::applicationDirPath();
 
@@ -271,8 +260,6 @@ void Widget::changeList(){
             } else {
                 qDebug() << "Image saved successfully to:" << tempDir.path() + "/tempImage.png";
             }
-
-
 
 
             QString buttonStyleSheet = QString("QPushButton { "
@@ -374,7 +361,6 @@ void Widget::addVideo(){
                 video_list->append(new_item);
             }
         }
-
         emit list_change();
     }
 
