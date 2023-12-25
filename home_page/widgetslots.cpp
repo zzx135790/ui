@@ -61,22 +61,59 @@ void Widget::changeList(){
         view_39, view_40, view_41, view_42
     };
 
-    if (video_list->size() > 14) {
-        std::reverse(video_list->end() - 14, video_list->end());
-        video_list->erase(video_list->begin(), video_list->end() - 14);
-    } else {
-        std::reverse(video_list->begin(), video_list->end());
+    QVector<QString> dates;
+
+    // 获取今天的日期
+    QDate currentDate = QDate::currentDate();
+
+    // 生成向前推14天的日期
+    for (int i = 0; i < 14; ++i) {
+        QDate date = currentDate.addDays(-i);
+        QString dateString = date.toString("yyyy-MM-dd");
+        dates.append(dateString);
+    }
+
+    // 打印生成的日期
+    for (const QString &date : dates) {
+        bool found = false;
+
+        for (video_item& video : *video_list) {
+            if (video.get_Time() == date) {
+                show_list->append(video);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            // 如果没有找到匹配项，则创建一个日期为空的视频对象并添加到新列表中
+            video_item video_item ("", "", "");
+            show_list->append(video_item);
+        }
+    }
+
+    for (video_item& video : *video_list) {
+        qDebug() << "Title:" << video.get_img() << "Date:" << video.get_Time();
     }
 
 
 
+
+
+
+    std::reverse(show_list->begin(), show_list->end());
+
+
     int buttonIndex = 0;
 
-    for (auto& video : *video_list) {
+    for (auto& video : *show_list) {
 
         signalMapper = new QSignalMapper(this);
 
         QPushButton* button = buttons[buttonIndex];
+
+
+
+
 
         if(video.get_img() != NULL && buttonIndex < 3){
 
@@ -89,8 +126,11 @@ void Widget::changeList(){
                 post_url(url,currentPageSize);
             });
 
+            QString day = video.get_Time().mid(8, 2); // 从索引为8的位置开始，截取长度为2的子字符串
+            QString iconPath = QString(":/icon/%1.png").arg(day);
+
             // 从资源文件加载图标
-            QIcon icon(":/icon/plus.png");
+            QIcon icon(iconPath);
 
             // 设置按钮的大小和图标
             icon = icon.pixmap(QSize(16, 16));
@@ -122,8 +162,10 @@ void Widget::changeList(){
                 post_url(url,currentPageSize);
             });
 
+            QString day = video.get_Time().mid(8, 2); // 从索引为8的位置开始，截取长度为2的子字符串
+            QString iconPath = QString(":/icon/%1.png").arg(day);
             // 从资源文件加载图标
-            QIcon icon(":/icon/plus.png");
+            QIcon icon(iconPath);
 
             // 设置按钮的大小和图标
             icon = icon.pixmap(QSize(16, 16));
@@ -147,12 +189,33 @@ void Widget::changeList(){
         buttonIndex += 1;
     }
 
-    if (video_list->size() > 3) {
-        video_list->erase(video_list->begin() + 3, video_list->end()); // 删除从第四项开始到末尾的所有项
+    if(buttonIndex < 13){
+        for (int i = buttonIndex; i < 14; ++i) {
+            // 从资源文件加载图标
+            QIcon icon(":/icon/plus.png");
+            QPushButton* button = buttons[i];
+            // 设置按钮的大小和图标
+            icon = icon.pixmap(QSize(16, 16));
+            button->setIcon(icon);
+            button->setIconSize(QSize(16, 16));
+
+            button->setStyleSheet(button_sheet_two);
+        }
     }
+
+
+    if (show_list->size() > 3) {
+        show_list->erase(show_list->begin() + 3, show_list->end()); // 删除从第四项开始到末尾的所有项
+    }
+
+    for (video_item& video : *show_list) {
+        qDebug() << "Title:" << video.get_img() << "Date:" << video.get_Time();
+    }
+
 }
 
 void Widget::addVideo(){
+
     QString resource = QFileDialog::getOpenFileName(this, tr("Choose today video"), "", tr(" Video Files(*.wmv)"));
     QFile video_ori(resource);
     if (resource.isEmpty()||!video_ori.exists()) {
@@ -164,6 +227,10 @@ void Widget::addVideo(){
     videoTest->play();
     loop.exec();
     QFile cover(cover_path+date+".png");
+
+
+
+    qDebug() << cover.exists();
     if (cover.exists()){
         QDir video_des(video_path);
         if (!video_des.exists()||!video_ori.copy(video_path+date+".wmv")){
@@ -184,6 +251,7 @@ void Widget::addVideo(){
                 video_list->append(new_item);
             }
         }
+
         emit list_change();
     }
 
@@ -269,28 +337,52 @@ void Widget::writeXmlToFile() {
         return;
     }
 
+    qDebug() << "File exist, performing the operation...";
     QXmlStreamWriter xmlWriter(&file);
-    xmlWriter.setAutoFormatting(true); // 可选，设置自动格式化以便更易读
+    xmlWriter.setAutoFormatting(true); // 设置自动格式化以便更易读
 
     xmlWriter.writeStartDocument();
     xmlWriter.writeStartElement("mediaItems");
 
+    for (auto& item : *video_list) {
+        xmlWriter.writeStartElement("mediaItem");
+        xmlWriter.writeTextElement("imagePath", item.get_img());
+        xmlWriter.writeTextElement("createTime", item.get_Time());
+        xmlWriter.writeTextElement("videoPath", item.get_URL());
+        xmlWriter.writeEndElement(); // mediaItem
+    }
+
+    xmlWriter.writeEndElement(); // mediaItems
+    xmlWriter.writeEndDocument();
+
+    file.close();
+    qDebug() << "Write to the file sucssessfully, performing the operation...";
+
+
+
+
+//    QXmlStreamWriter xmlWriter(&file);
+//    xmlWriter.setAutoFormatting(true); // 可选，设置自动格式化以便更易读
+
+//    xmlWriter.writeStartDocument();
+//    xmlWriter.writeStartElement("mediaItems");
+
 //    // 这里准备了一个示例数据列表，你可以使用自己的数据
 //    QList<QStringList> mediaItems = {
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-01", "/Users/pamper/Desktop/test1/avi"},
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-02", "/Users/pamper/Desktop"},
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-03", "/Users/pamper/Desktop"},
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-04", "/Users/pamper/Desktop"},
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-05", "/Users/pamper/Desktop"},
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-06", "/Users/pamper/Desktop"},
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-07", "/Users/pamper/Desktop"},
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-08", "/Users/pamper/Desktop"},
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-09", "/Users/pamper/Desktop"},
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-10", "/Users/pamper/Desktop"},
-//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-11", "F:/FFOutput/test.wmv"},
-//                                     {"", "2023-12-12", "C:/Users/zzx123/Downloads/test2.wmv"},
-//                                     {":/icon/user_img/user1.png", "2023-12-13", "C:/Users/zzx123/Downloads/test2.wmv"},
-//                                     {":/icon/user_img/user1.png", "2023-12-13", "C:/Users/zzx123/Downloads/test2.wmv"},
+//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-11", "/Users/pamper/Desktop/test1/avi"},
+//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-12", "/Users/pamper/Desktop"},
+//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-13", "/Users/pamper/Desktop"},
+//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-14", "/Users/pamper/Desktop"},
+//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-15", "/Users/pamper/Desktop"},
+//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-16", "/Users/pamper/Desktop"},
+//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-17", "/Users/pamper/Desktop"},
+//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-18", "/Users/pamper/Desktop"},
+//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-19", "/Users/pamper/Desktop"},
+//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-20", "/Users/pamper/Desktop"},
+//                                     {"/Users/pamper/Desktop/QT/home_page/user_img/user1.png", "2023-12-21", "F:/FFOutput/test.wmv"},
+//                                     {"", "2023-12-22", "C:/Users/zzx123/Downloads/test2.wmv"},
+//                                     {":/icon/user_img/user1.png", "2023-12-23", "C:/Users/zzx123/Downloads/test2.wmv"},
+//                                     {":/icon/user_img/user1.png", "2023-12-24", "C:/Users/zzx123/Downloads/test2.wmv"},
 //                                     };
 
 //    for (const auto& item : mediaItems) {
@@ -301,8 +393,8 @@ void Widget::writeXmlToFile() {
 //        xmlWriter.writeEndElement(); // mediaItem
 //    }
 
-    xmlWriter.writeEndElement(); // mediaItems
-    xmlWriter.writeEndDocument();
+//    xmlWriter.writeEndElement(); // mediaItems
+//    xmlWriter.writeEndDocument();
 
-    file.close(); // 关闭文件
+//    file.close(); // 关闭文件
 }

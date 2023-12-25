@@ -217,7 +217,6 @@ Widget::Widget(QWidget *parent)
     emit list_change();
 
 
-
     QPushButton *lock_1 = findChild<QPushButton*>("plus");
     QPushButton *lock_2 = findChild<QPushButton*>("lock_1");
     QPushButton *lock_3 = findChild<QPushButton*>("lock_2");
@@ -257,6 +256,10 @@ Widget::Widget(QWidget *parent)
         }
         button_2_index += 1;
     }
+
+
+
+
     videoWidget = new PlayerWidget();
     videoTest = new QMediaPlayer();
     surface = new MyVideoSurface();
@@ -268,6 +271,8 @@ Widget::Widget(QWidget *parent)
 
 Widget::~Widget()
 {
+
+    writeXmlToFile();
     delete ui;
 }
 
