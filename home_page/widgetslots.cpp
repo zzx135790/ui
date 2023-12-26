@@ -109,7 +109,7 @@ void Widget::changeList(){
         if (!found) {
             // If no match is found, a video object with an empty date is created and added to the new list
 
-            video_item video_item ("", "", "");
+            video_item video_item ("", "", date);
             show_list->append(video_item);
         }
     }
@@ -165,7 +165,9 @@ void Widget::changeList(){
         else{
 
 
-            QIcon icon(":/icon/lock.png");
+            QString day = video.get_Time().mid(8, 2); // Starting at index 8, cut a substring of length 2
+            QString iconPath = QString(":/icon/%1.png").arg(day);
+            QIcon icon(iconPath);
 
 
             icon = icon.pixmap(QSize(16, 16));
@@ -180,7 +182,10 @@ void Widget::changeList(){
     if(buttonIndex < 14){
         for (int i = buttonIndex; i < 14; ++i) {
 
-            QIcon icon(":/icon/plus.png");
+            QString day = dates[i].mid(8, 2); // Starting at index 8, cut a substring of length 2
+            QString iconPath = QString(":/icon/%1.png").arg(day);
+            QIcon icon(iconPath);
+
             QPushButton* button = buttons[i];
 
             icon = icon.pixmap(QSize(16, 16));
@@ -203,7 +208,6 @@ void Widget::changeList(){
 
     if (show_list->size() > 3) {
         show_list->erase(show_list->begin() + 3, show_list->end()); // Delete all items from the fourth item to the end
-
     }
 
 
