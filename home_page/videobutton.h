@@ -66,8 +66,7 @@ protected slots:
     void slot_fullscreen_button_clicked();
     void slot_voice_slider_valueChanged(int value);
     void slot_speed_valueChanged();
-
-
+    void slot_return_click();
 };
 
 #endif // BUTTONWIDGET_H

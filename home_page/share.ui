@@ -54,7 +54,7 @@
          <property name="font">
           <font>
            <family>Arial Rounded MT Bold</family>
-           <pointsize>18</pointsize>
+           <pointsize>15</pointsize>
            <bold>true</bold>
           </font>
          </property>

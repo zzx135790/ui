@@ -50,9 +50,8 @@ PlayerWidget::PlayerWidget(QWidget *parent): QWidget(parent), currentFormattedTi
     //    });
 
     connect(multiPlayer, SIGNAL(durationChanged(qint64)), this, SLOT(getduration(qint64)));
-
     videoWidget->show();
-    resize(500, 800);
+//    resize(500, 800);
 
 //    qDebug()<<multiPlayer->position();
 }
@@ -91,7 +90,7 @@ void PlayerWidget::Init()
     totalTime_label = new QLabel("00:00");
     totalTime_label->setStyleSheet("color: white;");
     btnWidget->ButtonStyleSet(return_btn,":/button/icon/return.png");
-
+    connect(return_btn, SIGNAL(clicked()),btnWidget,SLOT(slot_return_click()));
     connect(return_btn, SIGNAL(clicked()),this,SLOT(returnclick()));
     connect(btnWidget, SIGNAL(voice_button_clicked(int)),this,SLOT(voiceclick(int)));
     connect(btnWidget, SIGNAL(play_button_clicked()),this,SLOT(playclick()));

@@ -96,6 +96,9 @@ void buttonWidget::slot_speed_valueChanged(){
     emit speed_slider_valueChanged(speed_data);
 }
 
-
+void buttonWidget::slot_return_click(){
+    playStatus = 1;
+    ButtonStyleSet(play_button,":/button/icon/pause.png");
+}
 
 
