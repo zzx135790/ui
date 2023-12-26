@@ -225,9 +225,11 @@ void Widget::changeList(){
             disconnect(buttons_2[button_2_index], &QPushButton::clicked, 0, 0);
             connect(buttons_2[button_2_index], &QPushButton::clicked, [this, url]() {
                 // The button click event is handled here, using the information of the video object
-
                 post_url(url);
             });
+
+            QFileInfo fileInfo(imagePath);
+            QString fileName = fileInfo.baseName(); // 获取不带后缀的文件名
 
             QPixmap originalPixmap(imagePath);
 
@@ -256,14 +258,14 @@ void Widget::changeList(){
             }
 
             // Creates a temporary file in the specified temporary folder
-            QTemporaryFile tempFile(tempDir.path() + "/tempImage.png");
+            QTemporaryFile tempFile(tempDir.path() + "/tempImage" + fileName +".png");
 
-            if (!scaledPixmap.save(tempDir.path() + "/tempImage.png")) {
+            if (!scaledPixmap.save(tempDir.path() + "/tempImage" + fileName +".png")) {
                 qDebug() << "Failed to save image!";
                 // Handle a save failure
                 return ;
             } else {
-                qDebug() << "Image saved successfully to:" << tempDir.path() + "/tempImage.png";
+                qDebug() << "Image saved successfully to:" << tempDir.path() + "/tempImage" + fileName +".png";
             }
             buttons_2[button_2_index]->setStyleSheet("");
             buttons_2[button_2_index]->setIcon(QIcon()); // pass in an empty QIcon
@@ -286,7 +288,7 @@ void Widget::changeList(){
                                                "QPushButton:pressed {"
                                                "border: 3px solid #696666;"
                                                "border-radius: 10px;"
-                                               "}").arg(tempDir.path() + "/tempImage.png");
+                                               "}").arg(tempDir.path() + "/tempImage" + fileName +".png");
 
             buttons_2[button_2_index]->setStyleSheet(buttonStyleSheet);
         }
