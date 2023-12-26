@@ -28,6 +28,13 @@ void PlayerWidget::voicechange(int voice)
 
 void PlayerWidget::returnclick(){
     multiPlayer->stop();
+    delete multiPlayer;
+    multiPlayer = new QMediaPlayer;
+    multiPlayer->setPlaybackRate(1.0);
+    multiPlayer->setVideoOutput(videoWidget);
+    multiPlayer->setVolume(50);
+//    multiPlayer->stop();
+//    multiPlayer->setMedia(QMediaContent());
     emit back(this);
 }
 

@@ -3,7 +3,9 @@
 #include "ui_widget.h"
 #include <QDir>
 
-MyVideoSurface::MyVideoSurface(QObject *parent) : QAbstractVideoSurface(parent) {}
+MyVideoSurface::MyVideoSurface(QObject *parent) : QAbstractVideoSurface(parent) {
+
+}
 
 QList<QVideoFrame::PixelFormat> MyVideoSurface::supportedPixelFormats(QAbstractVideoBuffer::HandleType handleType) const {
     Q_UNUSED(handleType);
@@ -27,6 +29,7 @@ Widget::Widget(QWidget *parent)
     ,video_list(new QVector<video_item>)
     ,show_list(new QVector<video_item>)
 {
+    this->setWindowTitle("Be Myself");
     cover_path = "./source/img/";
     data_path = "./source/data.xml";
     video_path = "./source/video/";

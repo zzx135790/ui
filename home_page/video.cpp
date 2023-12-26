@@ -9,6 +9,7 @@
 
 PlayerWidget::PlayerWidget(QWidget *parent): QWidget(parent), currentFormattedTime("00:00")
 {
+    this->setWindowTitle("Player");
     audioOutput = new QAudioOutput();
 
     QVBoxLayout* vlayout = new QVBoxLayout(this);

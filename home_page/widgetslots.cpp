@@ -352,6 +352,8 @@ void Widget::addVideo(){
     qDebug() << cover.exists();
     if (cover.exists()){
         QDir video_des(video_path);
+        bool test = QFile::remove(video_path+date+".wmv");
+        qDebug()<<"delete:"<<test;
         if (!video_des.exists()||!video_ori.copy(video_path+date+".wmv")){
             return ;
         }
@@ -371,13 +373,14 @@ void Widget::addVideo(){
             }
         }
         emit list_change();
-        this->update();
+
     }
 
 }
 void Widget::saveCover(const QImage &frame){
     frame.save(cover_path+date+".png","PNG");
     videoTest->stop();
+    videoTest->setMedia(QMediaContent());
     loop.quit();
 }
 

@@ -22,7 +22,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Widget</string>
+   <string>BeMyself</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -491,8 +491,8 @@ background-color:#232323;</string>
         <widget class="QLabel" name="label_7">
          <property name="font">
           <font>
-           <family>Arial Rounded MT Bold</family>
-           <pointsize>16</pointsize>
+           <family>Arial</family>
+           <pointsize>13</pointsize>
           </font>
          </property>
          <property name="styleSheet">
@@ -520,7 +520,7 @@ background-color:#232323;</string>
         <widget class="QLabel" name="label_8">
          <property name="font">
           <font>
-           <family>Arial Rounded MT Bold</family>
+           <family>Arial</family>
            <pointsize>12</pointsize>
           </font>
          </property>
@@ -1160,8 +1160,8 @@ border-radius:8px</string>
             </property>
             <property name="font">
              <font>
-              <family>Arial Rounded MT Bold</family>
-              <pointsize>16</pointsize>
+              <family>Arial</family>
+              <pointsize>13</pointsize>
              </font>
             </property>
             <property name="styleSheet">
