@@ -1,52 +1,46 @@
 #include "videobutton.h"
 
+// Set button style, including icon, border, and color
 void buttonWidget::ButtonStyleSet(QPushButton* button, QString IconPath)
 {
-    button->setIcon(QIcon(IconPath));
-    button->setFlat(true);
+    button->setIcon(QIcon(IconPath)); // Set button icon
+    button->setFlat(true); // Set the button to a flat style with no border
     button->setStyleSheet("QPushButton {"
-                          "border-radius: 8px;" // 普通状态下的边框圆角
-                          "background-color: #232323;"
-                          "color: #ffffff;"
-                          "padding-top: 5px;" // 上方间距为 15px
-                          "padding-bottom: 5px;" // 下方间距为 15px
+                          "border-radius: 8px;" // Set button border radius
+                          "background-color: #232323;" // Set button background color
+                          "color: #ffffff;" // Set text color to white
+                          "padding-top: 5px;" // Top padding
+                          "padding-bottom: 5px;" // Bottom padding
                           "}"
-                          "QPushButton:hover {"
-                          "border-color: #FAF9F6;" // 悬停状态下修改边框颜色
-                          "background-color: #3C3C3C;"
-                          "color: #ffffff"
+                          "QPushButton:hover {" // Style when mouse hovers over the button
+                          "border-color: #FAF9F6;" // Modify border color
+                          "background-color: #3C3C3C;" // Modify background color
+                          "color: #ffffff" // Modify text color
                           "}"
-                          "QPushButton:pressed {"
-                          "border-width: 3px;" // 按下状态下增加边框宽度
-                          "background-color: #191919;"
-                          "color: #ffffff"
+                          "QPushButton:pressed {" // Style when pressed
+                          "border-width: 3px;" // Increase border width
+                          "background-color: #191919;" // Modify background color
+                          "color: #ffffff" // Modify text color
                           "}");
 }
 
 buttonWidget::buttonWidget(QWidget *parent): QWidget(parent), speed_data(2),
     playStatus(0), mute(0)
 {
-    mlayout = new QVBoxLayout(this);
+    mlayout = new QVBoxLayout(this); // Create a vertical layout manager
     hlayout1 = new QHBoxLayout();
-//    hlayout2 = new QHBoxLayout();
-//    hlayout3 = new QHBoxLayout();
 
-    Init();
+    Init(); // Initialize user interface elements
 
-    mlayout->addLayout(hlayout1, 0);
-//    mlayout->addLayout(hlayout2, 0);
-//    mlayout->addLayout(hlayout3, 0);
-
+    mlayout->addLayout(hlayout1, 0); // Add the horizontal layout to the vertical layout
 }
 
 void buttonWidget::Init()
 {
+    voice_button = new QPushButton(); // Create a sound button
+    ButtonStyleSet(voice_button, ":/button/icon/mid_voice.png"); // Set sound button style
 
-
-    voice_button = new QPushButton();
-    ButtonStyleSet(voice_button, ":/button/icon/mid_voice.png");
-
-    voice_slider = new QSlider(Qt::Horizontal);
+    voice_slider = new QSlider(Qt::Horizontal); // Create a sound slider
     voice_slider->setRange(0, 100);
     voice_slider->setValue(50);
     voice_slider->setPageStep(10);
@@ -65,74 +59,53 @@ void buttonWidget::Init()
         "    margin: -2px 0;"
         "    border-radius: 3px;"
         "}"
-//        "QSlider::sub-page:horizontal {"
-//        "    background: #3498db;" /* 设置填充部分颜色为深蓝色 */
-//        "    border-radius: 3px;" /* 可选：如果你想要填充部分也有圆角 */
-//        "    height: 4px;"
-//        "}"
         );
 
-    speed_button = new QPushButton();
-    speed_button->setText(QString("%1").arg(1.0, 0, 'f', 1) + QString(" x"));
-
+    speed_button = new QPushButton(); // Create a speed button
+    speed_button->setText(QString("%1").arg(1.0, 0, 'f', 1) + QString(" x")); // Set the text of the speed button
     speed_button->setStyleSheet("QPushButton {"
-                                "border-radius: 8px;" // 普通状态下的边框圆角
+                                "border-radius: 8px;"
                                 "background-color: #232323;"
                                 "color: #ffffff;"
-                                "padding-top: 5px;" // 上方间距为 15px
-                                "padding-bottom: 5px;" // 下方间距为 15px
+                                "padding-top: 5px;"
+                                "padding-bottom: 5px;"
                                 "}"
                                 "QPushButton:hover {"
-                                "border-color: #FAF9F6;" // 悬停状态下修改边框颜色
+                                "border-color: #FAF9F6;"
                                 "background-color: #3C3C3C;"
                                 "color: #ffffff"
                                 "}"
                                 "QPushButton:pressed {"
-                                "border-width: 3px;" // 按下状态下增加边框宽度
+                                "border-width: 3px;"
                                 "background-color: #191919;"
                                 "color: #ffffff"
                                 "}");
 
-    // speed_button 样式
+    play_button = new QPushButton(); // Create a play button
+    ButtonStyleSet(play_button, ":/button/icon/pause.png"); // Set play button style
+    pause_button = new QPushButton(); // Create a pause button
+    ButtonStyleSet(pause_button, ":/button/icon/pause.png"); // Set pause button style
+    back_button = new QPushButton(); // Create a back button
+    ButtonStyleSet(back_button, ":/button/icon/back.png"); // Set back button style
+    ahead_button = new QPushButton(); // Create a forward button
+    ButtonStyleSet(ahead_button, ":/button/icon/ahead.png"); // Set forward button style
+    fullscreen_button = new QPushButton(); // Create a fullscreen button
+    ButtonStyleSet(fullscreen_button, ":/button/icon/fullScreen.png"); // Set fullscreen button style
+    selectFile_button = new QPushButton(); // Create a select file button
+    ButtonStyleSet(selectFile_button, ":/button/icon/select.png"); // Set select file button style
 
-//    speed_label = new QLabel();
-//    speed_label->setText(QString("%1").arg(1.0, 0, 'f', 2) + QString("倍速"));
-//    speed_slider = new QSlider(Qt::Horizontal);
-//    speed_slider->setRange(0, 8);
-//    speed_slider->setTickInterval(2);
-//    speed_slider->setTickPosition(QSlider::TicksBelow);
-//    speed_slider->setValue(4);
-//    speed_slider->setPageStep(2);
-
-    play_button = new QPushButton();
-    ButtonStyleSet(play_button, ":/button/icon/pause.png");
-    pause_button = new QPushButton();
-    ButtonStyleSet(pause_button, ":/button/icon/pause.png");
-    back_button = new QPushButton();
-    ButtonStyleSet(back_button, ":/button/icon/back.png");
-    ahead_button = new QPushButton();
-    ButtonStyleSet(ahead_button, ":/button/icon/ahead.png");
-    fullscreen_button = new QPushButton();
-    ButtonStyleSet(fullscreen_button, ":/button/icon/fullScreen.png");
-    selectFile_button = new QPushButton();
-    ButtonStyleSet(selectFile_button, ":/button/icon/select.png");
-
-
+    // Add buttons and sliders to the horizontal layout
     hlayout1->addWidget(voice_button,1);
     hlayout1->addWidget(voice_slider,2);
     hlayout1->addWidget(back_button,1);
     hlayout1->addWidget(play_button,1);
     hlayout1->addWidget(ahead_button,1);
     hlayout1->addWidget(speed_button,2);
-//    hlayout1->addWidget(selectFile_button,1);
     hlayout1->addWidget(fullscreen_button,1);
 
-
-//    hlayout3->addWidget(speed_slider);
-//    hlayout3->addWidget(speed_label);
-
+    // Connect button and slider signals to corresponding slots for user interaction
     connect(voice_button, SIGNAL(clicked()), this, SLOT(slot_voice_button_clicked()));
-    connect(play_button, SIGNAL(clicked()), this, SLOT(slot_paly_button_clicked()));
+    connect(play_button, SIGNAL(clicked()), this, SLOT(slot_play_button_clicked()));
     connect(pause_button, SIGNAL(clicked()), this, SLOT(slot_pause_button_clicked()));
     connect(ahead_button, SIGNAL(clicked()), this, SLOT(slot_ahead_button_clicked()));
     connect(back_button, SIGNAL(clicked()), this, SLOT(slot_back_button_clicked()));
@@ -142,7 +115,6 @@ void buttonWidget::Init()
     connect(speed_button, SIGNAL(clicked()), this, SLOT(slot_speed_valueChanged()));
 }
 
-buttonWidget::~buttonWidget(){
-
+buttonWidget::~buttonWidget()
+{
 }
-

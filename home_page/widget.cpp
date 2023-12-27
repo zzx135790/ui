@@ -22,12 +22,11 @@ bool MyVideoSurface::present(const QVideoFrame &frame) {
     return true;
 }
 
-
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Widget)
-    ,video_list(new QVector<video_item>)
-    ,show_list(new QVector<video_item>)
+    , video_list(new QVector<video_item>)
+    , show_list(new QVector<video_item>)
 {
     this->setWindowTitle("Be Myself");
     cover_path = "./source/img/";
@@ -36,25 +35,26 @@ Widget::Widget(QWidget *parent)
     date = QDate::currentDate().toString("yyyy-MM-dd");
 
     ui->setupUi(this);
-    this->widget2 =new share;
-    connect(this->widget2,SIGNAL(back(QWidget*)),this,SLOT(comeBackToPrev(QWidget*)));
-    connect(this,&Widget::list_change,this,&Widget::changeList);
+    this->widget2 = new share;
+    connect(this->widget2, SIGNAL(back(QWidget*)), this, SLOT(comeBackToPrev(QWidget*)));
+    connect(this, &Widget::list_change, this, &Widget::changeList);
     connect(this, &Widget::video_url, this, &Widget::handleClick);
 
+    // Set styles for different buttons
     QString button_sheet_one = "QPushButton {"
-                       "border: 2px dashed #696666;"
-                       "border-radius: 10px;"
-                       "background-color: #232323;"
-                       "}"
-                       "QPushButton:hover {"
-                       "border: 2px dashed #696666;"
-                       "border-radius: 10px;"
-                       "background-color: #3C3C3C;"
-                       "}"
-                       "QPushButton:pressed {"
-                       "background-color: #696666;"
-                       "border-radius: 10px;"
-                       "background-color: #191919;"
+                               "border: 2px dashed #696666;"
+                               "border-radius: 10px;"
+                               "background-color: #232323;"
+                               "}"
+                               "QPushButton:hover {"
+                               "border: 2px dashed #696666;"
+                               "border-radius: 10px;"
+                               "background-color: #3C3C3C;"
+                               "}"
+                               "QPushButton:pressed {"
+                               "background-color: #696666;"
+                               "border-radius: 10px;"
+                               "background-color: #191919;"
                                "}";
 
     QString button_sheet_two = "QPushButton {"
@@ -73,22 +73,21 @@ Widget::Widget(QWidget *parent)
                                "color: #ffffff"
                                "}";
 
-
     QString button_sheet_five = "QPushButton {"
-                               "border: 2px solid #539ec6;"
-                               "border-radius: 8px;"
-                               "color: #ffffff"
-                               "}"
-                               "QPushButton:hover {"
-                               "border-color: #0b6a9b;"
-                               "background-color: #3C3C3C;"
-                               "color: #ffffff"
-                               "}"
-                               "QPushButton:pressed {"
-                               "border-width: 3px;"
-                               "background-color: #191919;"
-                               "color: #ffffff"
-                               "}";
+                                "border: 2px solid #539ec6;"
+                                "border-radius: 8px;"
+                                "color: #ffffff"
+                                "}"
+                                "QPushButton:hover {"
+                                "border-color: #0b6a9b;"
+                                "background-color: #3C3C3C;"
+                                "color: #ffffff"
+                                "}"
+                                "QPushButton:pressed {"
+                                "border-width: 3px;"
+                                "background-color: #191919;"
+                                "color: #ffffff"
+                                "}";
 
     QString button_sheet_three = "QPushButton {"
                                  "border-radius: 8px;"
@@ -106,16 +105,15 @@ Widget::Widget(QWidget *parent)
                                  "}";
 
     QString button_sheet_four = "QPushButton {"
-                                 "border:10px solid #FAF9F6;"
-                                 "border-radius: 50px;"
-                                 "}"
-                                 "QPushButton:hover {"
-                                 "border:10px solid #FAF9F6;"
-                                 "}"
-                                 "QPushButton:pressed {"
-                                 "border:10px dashed #3C3C3C;"
-
-                                 "}";
+                                "border:10px solid #FAF9F6;"
+                                "border-radius: 50px;"
+                                "}"
+                                "QPushButton:hover {"
+                                "border:10px solid #FAF9F6;"
+                                "}"
+                                "QPushButton:pressed {"
+                                "border:10px dashed #3C3C3C;"
+                                "}";
 
     QPushButton *view_29 = findChild<QPushButton*>("video_29");
     QPushButton *view_30 = findChild<QPushButton*>("video_30");
@@ -141,42 +139,32 @@ Widget::Widget(QWidget *parent)
 
     view_all->setStyleSheet(button_sheet_two);
 
-
     QPushButton *share_3 = findChild<QPushButton*>("share_3");
     QPushButton *user_3 = findChild<QPushButton*>("user_3");
     QPushButton *shoot = findChild<QPushButton*>("shoot");
 
-    connect(shoot,SIGNAL(clicked()),this,SLOT(addVideo()));
+    connect(shoot, SIGNAL(clicked()), this, SLOT(addVideo()));
 
     share_3->setStyleSheet(button_sheet_three);
     user_3->setStyleSheet(button_sheet_three);
     shoot->setStyleSheet(button_sheet_four);
 
-
-
     QFile file_org(data_path);
     QDir cover(cover_path);
     QDir vdo(video_path);
-    if (!file_org.exists()||!cover.exists()||!vdo.exists()) {
-        // File does not exist, perform your function or operation
+    if (!file_org.exists() || !cover.exists() || !vdo.exists()) {
+        // Execute related operations when the file does not exist
         writeXmlToFile();
-        qDebug() << "File doesn't exist, performing the operation...";
+        qDebug() << "The file does not exist, executing operations...";
     } else {
-        // If the file exists, no operation is performed
-
-        qDebug() << "File already exists, skipping the operation...";
+        // Skip operations when the file exists
+        qDebug() << "The file exists, skipping operations...";
     }
 
-
-
-
-
-    //Read file contents
-
+    // Read file content
     QFile file(data_path);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        // Handle file opening error
-
+        // Handle file open error
     }
 
     QXmlStreamReader xml(&file);
@@ -184,6 +172,7 @@ Widget::Widget(QWidget *parent)
     while (!xml.atEnd() && !xml.hasError()) {
         QXmlStreamReader::TokenType token = xml.readNext();
 
+        // Read all stored videos
         if (token == QXmlStreamReader::StartElement && xml.name() == "mediaItem") {
             QString imagePath;
             QString videoPath;
@@ -202,86 +191,70 @@ Widget::Widget(QWidget *parent)
                     } else if (xml.name() == "createTime") {
                         xml.readNext();
                         createTime = xml.text().toString();
-
                     }
                 }
             }
 
-            // Create VideoItem object and add it to video_list
+            // Create a VideoItem object and add it to video_list
             video_item video(videoPath, imagePath, createTime);
             video_list->push_back(video);
         }
     }
     if (xml.hasError()) {
         // Handle XML parsing error
-        qDebug() << ("解析xml文件失败\n");
+        qDebug() << ("Failed to parse XML file\n");
     }
 
     file.close();
 
-
     emit list_change();
-
-
-
-
-
 
     videoWidget = new PlayerWidget();
     videoTest = new QMediaPlayer();
     surface = new MyVideoSurface();
     videoTest->setVideoOutput(surface);
     connect(surface, &MyVideoSurface::frameAvailable, this, &Widget::saveCover);
-
-
 }
+
 
 Widget::~Widget()
 {
-
+    // Call the function to write to the XML file to save data in the destructor
     writeXmlToFile();
-    delete ui;
+    delete ui; // Release memory for the UI object
 }
 
 video_item::video_item(QString url, QString img, QString t) {
-    URL = url;
-    image = img;
-    time = t;
+    URL = url;   // Initialize the URL member variable
+    image = img; // Initialize the image member variable
+    time = t;   // Initialize the time member variable
 }
-
 
 video_item::~video_item() {
-
+    // The destructor is empty because there are no special resources to release
 }
 
-
-// Get URL function implementation
+// Implementation of the function to get URL
 QString video_item::get_URL() {
-    return URL;
+    return URL; // Return the value of the URL member variable
 }
 
-// Get image function implementation
+// Implementation of the function to get image
 QString video_item::get_img() {
-    return image;
+    return image; // Return the value of the image member variable
 }
 
-// Get time function implementation
+// Implementation of the function to get time
 QString video_item::get_Time() {
-    return time;
+    return time; // Return the value of the time member variable
 }
 
-// Change picture
-void video_item::set_img( QString image) {
-    this->image = image;
+// Change the image
+void video_item::set_img(QString image) {
+    this->image = image; // Set the value of the image member variable
 }
 
-
-// Change URL
-void video_item::set_URL( QString url) {
-    this->URL = url;
+// Change the URL
+void video_item::set_URL(QString url) {
+    this->URL = url; // Set the value of the URL member variable
 }
-
-
-
-
-

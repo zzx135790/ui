@@ -10,100 +10,100 @@ share::share(QWidget *parent) :
     QLabel *label_14 = findChild<QLabel*>("label_14");
 
     if (label_14) {
-        // 加载图标
+        // Load icon
         QPixmap originalPixmap(":/icon/blue.png");
 
-        // 设置 QLabel 的大小
+        // Set QLabel's size
 
-        // 指定新的宽度和高度，按比例缩放图像
-        int newWidth = 40; // 你想要的新的宽度
-        int newHeight = 40; // 你想要的新的高度
+        // Specify the new width and height, scaling the image proportionally
+        int newWidth = 40; // The new width you desire
+        int newHeight = 40; // The new height you desire
 
         QPixmap scaledPixmap = originalPixmap.scaled(newWidth, newHeight, Qt::KeepAspectRatio);
 
-        // 将缩放后的图标设置给 QLabel
+        // Set the scaled icon to the QLabel
         label_14->setPixmap(scaledPixmap);
-        // 设置 QLabel 的大小
+        // Set QLabel's size
         label_14->setFixedSize(newWidth, newHeight);
     }
 
     QLabel *label_17 = findChild<QLabel*>("label_17");
 
     if (label_17) {
-        // 加载图标
+        // Load icon
         QPixmap originalPixmap(":/icon/blue.png");
 
-        // 设置 QLabel 的大小
+        // Set QLabel's size
 
-        // 指定新的宽度和高度，按比例缩放图像
-        int newWidth = 40; // 你想要的新的宽度
-        int newHeight = 40; // 你想要的新的高度
+        // Specify the new width and height, scaling the image proportionally
+        int newWidth = 40; // The new width you desire
+        int newHeight = 40; // The new height you desire
 
         QPixmap scaledPixmap = originalPixmap.scaled(newWidth, newHeight, Qt::KeepAspectRatio);
 
-        // 将缩放后的图标设置给 QLabel
+        // Set the scaled icon to the QLabel
         label_17->setPixmap(scaledPixmap);
-        // 设置 QLabel 的大小
+        // Set QLabel's size
         label_17->setFixedSize(newWidth, newHeight);
     }
 
     QLabel *label_20 = findChild<QLabel*>("label_20");
 
     if (label_20) {
-        // 加载图标
+        // Load icon
         QPixmap originalPixmap(":/icon/blue.png");
 
-        // 设置 QLabel 的大小
+        // Set QLabel's size
 
-        // 指定新的宽度和高度，按比例缩放图像
-        int newWidth = 40; // 你想要的新的宽度
-        int newHeight = 40; // 你想要的新的高度
+        // Specify the new width and height, scaling the image proportionally
+        int newWidth = 40; // The new width you desire
+        int newHeight = 40; // The new height you desire
 
         QPixmap scaledPixmap = originalPixmap.scaled(newWidth, newHeight, Qt::KeepAspectRatio);
 
-        // 将缩放后的图标设置给 QLabel
+        // Set the scaled icon to the QLabel
         label_20->setPixmap(scaledPixmap);
-        // 设置 QLabel 的大小
+        // Set QLabel's size
         label_20->setFixedSize(newWidth, newHeight);
     }
 
     QLabel *label_26 = findChild<QLabel*>("label_26");
 
     if (label_26) {
-        // 加载图标
+        // Load icon
         QPixmap originalPixmap(":/icon/blue.png");
 
-        // 设置 QLabel 的大小
+        // Set QLabel's size
 
-        // 指定新的宽度和高度，按比例缩放图像
-        int newWidth = 40; // 你想要的新的宽度
-        int newHeight = 40; // 你想要的新的高度
+        // Specify the new width and height, scaling the image proportionally
+        int newWidth = 40; // The new width you desire
+        int newHeight = 40; // The new height you desire
 
         QPixmap scaledPixmap = originalPixmap.scaled(newWidth, newHeight, Qt::KeepAspectRatio);
 
-        // 将缩放后的图标设置给 QLabel
+        // Set the scaled icon to the QLabel
         label_26->setPixmap(scaledPixmap);
-        // 设置 QLabel 的大小
+        // Set QLabel's size
         label_26->setFixedSize(newWidth, newHeight);
     }
 
     QLabel *label_23 = findChild<QLabel*>("label_23");
 
     if (label_14) {
-        // 加载图标
+        // Load icon
         QPixmap originalPixmap(":/icon/blue.png");
 
-        // 设置 QLabel 的大小
+        // Set QLabel's size
 
-        // 指定新的宽度和高度，按比例缩放图像
-        int newWidth = 40; // 你想要的新的宽度
-        int newHeight = 40; // 你想要的新的高度
+        // Specify the new width and height, scaling the image proportionally
+        int newWidth = 40; // The new width you desire
+        int newHeight = 40; // The new height you desire
 
         QPixmap scaledPixmap = originalPixmap.scaled(newWidth, newHeight, Qt::KeepAspectRatio);
 
-        // 将缩放后的图标设置给 QLabel
+        // Set the scaled icon to the QLabel
         label_23->setPixmap(scaledPixmap);
-        // 设置 QLabel 的大小
+        // Set QLabel's size
         label_23->setFixedSize(newWidth, newHeight);
     }
 
@@ -111,40 +111,40 @@ share::share(QWidget *parent) :
     QLabel *label_29 = findChild<QLabel*>("label_29");
 
     if (label_29) {
-        // 加载图标
+        // Load icon
         QPixmap originalPixmap(":/icon/blue.png");
 
-        // 设置 QLabel 的大小
+        // Set QLabel's size
 
-        // 指定新的宽度和高度，按比例缩放图像
-        int newWidth = 40; // 你想要的新的宽度
-        int newHeight = 40; // 你想要的新的高度
+        // Specify the new width and height, scaling the image proportionally
+        int newWidth = 40; // The new width you desire
+        int newHeight = 40; // The new height you desire
 
         QPixmap scaledPixmap = originalPixmap.scaled(newWidth, newHeight, Qt::KeepAspectRatio);
 
-        // 将缩放后的图标设置给 QLabel
+        // Set the scaled icon to the QLabel
         label_29->setPixmap(scaledPixmap);
-        // 设置 QLabel 的大小
+        // Set QLabel's size
         label_29->setFixedSize(newWidth, newHeight);
     }
 
     QLabel *label = findChild<QLabel*>("label");
 
     if (label) {
-        // 加载图标
+        // Load icon
         QPixmap originalPixmap(":/icon/search.png");
 
-        // 设置 QLabel 的大小
+        // Set QLabel's size
 
-        // 指定新的宽度和高度，按比例缩放图像
-        int newWidth = 20; // 你想要的新的宽度
-        int newHeight = 20; // 你想要的新的高度
+        // Specify the new width and height, scaling the image proportionally
+        int newWidth = 20; // The new width you desire
+        int newHeight = 20; // The new height you desire
 
         QPixmap scaledPixmap = originalPixmap.scaled(newWidth, newHeight, Qt::KeepAspectRatio);
 
-        // 将缩放后的图标设置给 QLabel
+        // Set the scaled icon to the QLabel
         label->setPixmap(scaledPixmap);
-        // 设置 QLabel 的大小
+        // Set QLabel's size
         label->setFixedSize(newWidth, newHeight);
     }
 
@@ -153,35 +153,35 @@ share::share(QWidget *parent) :
     QLabel *label_3 = findChild<QLabel*>("label_3");
 
     if (label_3) {
-        // 加载图标
+        // Load icon
         QPixmap originalPixmap(":/icon/blue.png");
 
-        // 设置 QLabel 的大小
+        // Set QLabel's size
 
-        // 指定新的宽度和高度，按比例缩放图像
-        int newWidth = 30; // 你想要的新的宽度
-        int newHeight = 30; // 你想要的新的高度
+        // Specify the new width and height, scaling the image proportionally
+        int newWidth = 30; // The new width you desire
+        int newHeight = 30; // The new height you desire
 
         QPixmap scaledPixmap = originalPixmap.scaled(newWidth, newHeight, Qt::KeepAspectRatio);
 
-        // 将缩放后的图标设置给 QLabel
+        // Set the scaled icon to the QLabel
         label_3->setPixmap(scaledPixmap);
-        // 设置 QLabel 的大小
+        // Set QLabel's size
         label_3->setFixedSize(newWidth, newHeight);
     }
 
     QString button_sheet_three = "QPushButton {"
-                                 "border-radius: 8px;" // 普通状态下的边框圆角
+                                 "border-radius: 8px;" // Border radius for normal state
                                  "background-color: #232323;"
                                  "color: #ffffff"
                                  "}"
                                  "QPushButton:hover {"
-                                 "border-color: #FAF9F6;" // 悬停状态下修改边框颜色
+                                 "border-color: #FAF9F6;" // Modify border color for hover state
                                  "background-color: #3C3C3C;"
                                  "color: #ffffff"
                                  "}"
                                  "QPushButton:pressed {"
-                                 "border-width: 3px;" // 按下状态下增加边框宽度
+                                 "border-width: 3px;" // Increase border width for pressed state
                                  "background-color: #191919;"
                                  "color: #ffffff"
                                  "}";
@@ -224,4 +224,3 @@ void share::on_return_2_clicked()
 {
     emit this->back(this);
 }
-

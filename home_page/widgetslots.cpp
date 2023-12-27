@@ -5,28 +5,25 @@
 #include <QDate>
 
 void Widget::changeList(){
-
+    // Define button style sheets
     QString button_sheet_one = "QPushButton {"
                                "border: 2px dashed #696666;"
                                "border-radius: 10px;"
                                "background-color: #232323;"
                                "}"
                                "QPushButton:hover {"
-                               "border: 2px dashed #696666;" // Modify the border color while hovering
-
+                               "border: 2px dashed #696666;" // Modify border color when hovered
                                "border-radius: 10px;"
                                "background-color: #3C3C3C;"
                                "}"
                                "QPushButton:pressed {"
-                               "background-color: #696666;" // Change the background color when pressed
-
+                               "background-color: #696666;" // Modify background color when pressed
                                "border-radius: 10px;"
                                "background-color: #191919;"
                                "}";
 
     QString button_sheet_two = "QPushButton {"
                                "border: 2px solid #FAF9F6;" // Border style in normal state
-
                                "border-radius: 8px;"
                                "color: #ffffff"
                                "}"
@@ -36,8 +33,7 @@ void Widget::changeList(){
                                "color: #ffffff"
                                "}"
                                "QPushButton:pressed {"
-                               "border-width: 3px;" // Increase the border width when pressed
-
+                               "border-width: 3px;" // Increase border width when pressed
                                "background-color: #191919;"
                                "color: #ffffff"
                                "}";
@@ -58,7 +54,7 @@ void Widget::changeList(){
                                 "color: #ffffff"
                                 "}";
 
-
+    // Find QPushButton widgets
     QPushButton *view_29 = findChild<QPushButton*>("video_29");
     QPushButton *view_30 = findChild<QPushButton*>("video_30");
     QPushButton *view_31 = findChild<QPushButton*>("video_31");
@@ -73,8 +69,8 @@ void Widget::changeList(){
     QPushButton *view_40 = findChild<QPushButton*>("video_40");
     QPushButton *view_41 = findChild<QPushButton*>("video_41");
     QPushButton *view_42 = findChild<QPushButton*>("video_42");
-//    QPushButton *view_all = findChild<QPushButton*>("view_all");
 
+    // Create a list of QPushButton pointers
     QList<QPushButton*> buttons = {
         view_29, view_30, view_31, view_32, view_33,
         view_34, view_35, view_36, view_37, view_38,
@@ -87,15 +83,15 @@ void Widget::changeList(){
     QDate currentDate = QDate::currentDate();
 
     show_list->clear();
-    // 生成向前推14天的日期
+
+    // Generate dates for the past 14 days
     for (int i = 0; i < 14; ++i) {
         QDate date = currentDate.addDays(-i);
         QString dateString = date.toString("yyyy-MM-dd");
         dates.append(dateString);
     }
 
-    // Generates a date pushed forward 14 days
-
+    // Iterate through dates and populate show_list
     for (const QString &date : dates) {
         bool found = false;
 
@@ -107,43 +103,36 @@ void Widget::changeList(){
         }
 
         if (!found) {
-            // If no match is found, a video object with an empty date is created and added to the new list
-
+            // If no matching item is found, create a video object with an empty date and add it to the new list
             video_item video_item ("", "", date);
             show_list->append(video_item);
         }
     }
 
-//    std::reverse(show_list->begin(), show_list->end());
-
-
     int buttonIndex = 0;
+
+    // Update buttons based on the content of show_list
     for (auto& video : *show_list) {
-
-        signalMapper = new QSignalMapper(this);
-
         QPushButton* button = buttons[buttonIndex];
 
-
-        if(video.get_img() != NULL){
-
+        if (video.get_img() != NULL){
+            // Handle buttons with video images
             QString url = video.get_URL();
 
             disconnect(button, &QPushButton::clicked, 0, 0);
 
             connect(button, &QPushButton::clicked, [this, url]() {
-                // The button click event is handled here, using the information of the video object
+                // Handle button click event using video object information
                 post_url(url);
             });
 
-
-            QString day = video.get_Time().mid(8, 2); // Starting at index 8, cut a substring of length 2
+            QString day = video.get_Time().mid(8, 2); // Extract a substring starting from index 8 with a length of 2
             QString iconPath = QString(":/icon/%1.png").arg(day);
 
-            // Load ICONS from resource files
+            // Load the icon from the resource file
             QIcon icon(iconPath);
 
-            // Set the button size and icon
+            // Set button size and icon
             icon = icon.pixmap(QSize(16, 16));
             button->setIcon(icon);
             button->setIconSize(QSize(16, 16));
@@ -151,10 +140,10 @@ void Widget::changeList(){
             button->setStyleSheet(button_sheet_five);
         }
         else if(video.get_img() == NULL && buttonIndex == 0){
-
+            // Handle the first button without an image
             QIcon icon(":/icon/plus.png");
             disconnect(button, &QPushButton::clicked, 0, 0);
-            connect(button,SIGNAL(clicked()),this,SLOT(addVideo()));
+            connect(button, SIGNAL(clicked()), this, SLOT(addVideo()));
 
             icon = icon.pixmap(QSize(16, 16));
             button->setIcon(icon);
@@ -163,12 +152,10 @@ void Widget::changeList(){
             button->setStyleSheet(button_sheet_two);
         }
         else{
-
-
-            QString day = video.get_Time().mid(8, 2); // Starting at index 8, cut a substring of length 2
+            // Handle buttons without images (except the first button)
+            QString day = video.get_Time().mid(8, 2); // Extract a substring starting from index 8 with a length of 2
             QString iconPath = QString(":/icon/%1.png").arg(day);
             QIcon icon(iconPath);
-
 
             icon = icon.pixmap(QSize(16, 16));
             button->setIcon(icon);
@@ -179,10 +166,10 @@ void Widget::changeList(){
         buttonIndex += 1;
     }
 
+    // If buttonIndex is less than 14, fill the remaining buttons
     if(buttonIndex < 14){
         for (int i = buttonIndex; i < 14; ++i) {
-
-            QString day = dates[i].mid(8, 2); // Starting at index 8, cut a substring of length 2
+            QString day = dates[i].mid(8, 2); // Extract a substring starting from index 8 with a length of 2
             QString iconPath = QString(":/icon/%1.png").arg(day);
             QIcon icon(iconPath);
 
@@ -196,27 +183,27 @@ void Widget::changeList(){
         }
     }
 
+    // Remove objects with empty images from show_list
     for (auto it = show_list->begin(); it != show_list->end();) {
         if (it->get_img().isEmpty()) {
-            it = show_list->erase(it); // Delete the objects that meet the conditions
-
+            it = show_list->erase(it); // Erase objects that meet the condition
         } else {
             ++it;
         }
     }
 
-
+    // If the size of show_list is greater than 3, remove all items starting from the fourth item
     if (show_list->size() > 3) {
-        show_list->erase(show_list->begin() + 3, show_list->end()); // Delete all items from the fourth item to the end
+        show_list->erase(show_list->begin() + 3, show_list->end());
     }
 
-
+    // Find another set of buttons (buttons_2) and update their styles and icons
     QPushButton *lock_1 = findChild<QPushButton*>("plus");
     QPushButton *lock_2 = findChild<QPushButton*>("lock_1");
     QPushButton *lock_3 = findChild<QPushButton*>("lock_2");
 
     QList<QPushButton*> buttons_2 = {
-        lock_1,lock_2,lock_3
+        lock_1, lock_2, lock_3
     };
 
     int button_2_index = 0;
@@ -228,12 +215,12 @@ void Widget::changeList(){
             QString url = video.get_URL();
             disconnect(buttons_2[button_2_index], &QPushButton::clicked, 0, 0);
             connect(buttons_2[button_2_index], &QPushButton::clicked, [this, url]() {
-                // The button click event is handled here, using the information of the video object
+                // Handle button click event using video object information
                 post_url(url);
             });
 
             QFileInfo fileInfo(imagePath);
-            QString fileName = fileInfo.baseName(); // 获取不带后缀的文件名
+            QString fileName = fileInfo.baseName(); // Get the base name of the file without the extension
 
             QPixmap originalPixmap(imagePath);
 
@@ -244,7 +231,7 @@ void Widget::changeList(){
 
             QString rootDirPath = QCoreApplication::applicationDirPath();
 
-            // Build a temporary folder path relative to the root directory
+            // Build the temporary folder path relative to the root directory
             QString tempDirPath = rootDirPath + "/temp"; // Adjust the path as needed
 
             QDir tempDir(tempDirPath);
@@ -252,31 +239,32 @@ void Widget::changeList(){
             qDebug() << tempDirPath ;
 
             if (!tempDir.exists()) {
-                qDebug() << "Temp directory does not exist!";
-                // Try creating a temporary folder
+                qDebug() << "Temporary directory does not exist!";
+                // Try to create the temporary folder
                 if (!tempDir.mkpath(".")) {
-                    qDebug() << "Failed to create temp directory!";
-                    // Handle the situation where a temporary folder cannot be created
+                    qDebug() << "Unable to create the temporary directory!";
+                    // Handle the case where the temporary folder cannot be created
                     return ;
                 }
             }
 
-            // Creates a temporary file in the specified temporary folder
+            // Create a temporary file in the specified temporary folder
             QTemporaryFile tempFile(tempDir.path() + "/tempImage" + fileName +".png");
 
             if (!scaledPixmap.save(tempDir.path() + "/tempImage" + fileName +".png")) {
-                qDebug() << "Failed to save image!";
-                // Handle a save failure
+                qDebug() << "Failed to save the image!";
+                // Handle the save failure
                 return ;
             } else {
-                qDebug() << "Image saved successfully to:" << tempDir.path() + "/tempImage" + fileName +".png";
+                qDebug() << "Image successfully saved to: " << tempDir.path() + "/tempImage" + fileName +".png";
             }
+
             buttons_2[button_2_index]->setStyleSheet("");
-            buttons_2[button_2_index]->setIcon(QIcon()); // pass in an empty QIcon
+            buttons_2[button_2_index]->setIcon(QIcon()); // Set to an empty QIcon
             QString buttonStyleSheet = QString("QPushButton { "
                                                "border: 2px dashed #696666;"
                                                "border-radius: 10px;"
-                                               "background-image: url(%1); " // %1
+                                               "background-image: url(%1); "
                                                "background-position: center;"
                                                "background-position: center; "
                                                "background-repeat: no-repeat; "
@@ -301,18 +289,16 @@ void Widget::changeList(){
 
             QIcon icon(":/icon/plus.png");
 
-
             icon = icon.pixmap(QSize(40, 40));
             buttons_2[button_2_index]->setIcon(icon);
             buttons_2[button_2_index]->setIconSize(QSize(40, 40));
-
         }
         button_2_index += 1;
     }
 
+    // If button_2_index is less than 3, fill the remaining buttons
     if(button_2_index < 3){
         for (int i = button_2_index; i < 3; ++i) {
-
             QIcon icon(":/icon/lock.png");
             QPushButton* button = buttons_2[i];
 
@@ -326,7 +312,7 @@ void Widget::changeList(){
 
     this->update();
 
-
+    // Debug print the content of show_list and video_list
     for (video_item& video : *show_list) {
         qDebug() << "Title:" << video.get_img() << "Date:" << video.get_Time();
     }
@@ -334,58 +320,61 @@ void Widget::changeList(){
     for (video_item& video : *video_list) {
         qDebug() << "Title:" << video.get_img() << "Date:" << video.get_Time();
     }
-
 }
 
-void Widget::addVideo(){
 
-    QString resource = QFileDialog::getOpenFileName(this, tr("Choose today video"), "", tr(" Video Files(*.wmv)"));
+void Widget::addVideo(){
+    // Open the file selection dialog
+    QString resource = QFileDialog::getOpenFileName(this, tr("Choose today's video"), "", tr("Video Files (*.wmv)"));
     QFile video_ori(resource);
-    if (resource.isEmpty()||!video_ori.exists()) {
+
+    // Error check
+    if (resource.isEmpty() || !video_ori.exists()) {
         return;
     }
 
-    videoTest->setMedia(QUrl::fromLocalFile(resource));
-    videoTest->setPosition(videoTest->duration()/2);
-    videoTest->play();
-    loop.exec();
-    QFile cover(cover_path+date+".png");
+    // Get the video cover using a custom MyVideoSurface
 
+    videoTest->setMedia(QUrl::fromLocalFile(resource)); // Set the resource and open it
+    videoTest->play(); // Play the video to emit signals
+    loop.exec(); // Wait for the image to be saved to the corresponding directory
+    QFile cover(cover_path + date + ".png");
 
+    //    qDebug() << cover.exists();
 
-    qDebug() << cover.exists();
-    if (cover.exists()){
-        QDir video_des(video_path);
-        bool test = QFile::remove(video_path+date+".wmv");
-        qDebug()<<"delete:"<<test;
-        if (!video_des.exists()||!video_ori.copy(video_path+date+".wmv")){
-            return ;
+    if (cover.exists()) {
+        QDir video_des(video_path); // Check if the video save location exists
+        QFile::remove(video_path + date + ".wmv"); // Delete the original video
+        //        qDebug()<<"delete:"<<test;
+        if (!video_des.exists() || !video_ori.copy(video_path + date + ".wmv")) { // Copy the video to the specified directory
+            return;
         }
-        if (video_list->isEmpty()){
-            video_item new_item(video_path+date+".wmv",cover_path+date+".png",date);
+        if (video_list->isEmpty()) { // If the video list is empty, add it directly
+            video_item new_item(video_path + date + ".wmv", cover_path + date + ".png", date);
             video_list->append(new_item);
-        }
-        else {
+        } else {
             auto last = std::prev(video_list->end());
-            if (!video_list->isEmpty()&&last->get_Time() == date){
-                last->set_URL(video_path+date+".wmv");
-                last->set_img(cover_path+date+".png");
-            }
-            else {
-                video_item new_item(video_path+date+".wmv",cover_path+date+".png",date);
+
+            if (!video_list->isEmpty() && last->get_Time() == date) { // Replace today's video if it exists
+                last->set_URL(video_path + date + ".wmv");
+                last->set_img(cover_path + date + ".png");
+            } else { // Otherwise, add it to the end
+                video_item new_item(video_path + date + ".wmv", cover_path + date + ".png", date);
                 video_list->append(new_item);
             }
         }
-        emit list_change();
 
+        emit list_change(); // Emit a signal for re-rendering
     }
-
 }
-void Widget::saveCover(const QImage &frame){
-    frame.save(cover_path+date+".png","PNG");
-    videoTest->stop();
-    videoTest->setMedia(QMediaContent());
-    loop.quit();
+
+// Receive video frames and save them as covers
+void Widget::saveCover(const QImage &frame) {
+
+    frame.save(cover_path + date + ".png", "PNG"); // Save to the specified location
+    videoTest->stop(); // Pause the video
+    videoTest->setMedia(QMediaContent()); // Release the original video resource
+    loop.quit(); // Return the signal, indicating that the cover has been saved
 }
 
 void Widget::on_share_3_clicked()
@@ -393,10 +382,11 @@ void Widget::on_share_3_clicked()
     if (this->isVisible()) {
         QPalette currentPal(this->palette());
         QSize currentPageSize = this->size();
-        // Set widget2 to the same location as widget1
+        // Get the current window's position
         QPoint currentPos = this->pos();
         int x = currentPos.x();
         int y = currentPos.y();
+        // Move widget2 to the same position as widget1
         this->widget2->move(x, y);
         this->hide();
         this->widget2->resize(currentPageSize);
@@ -412,10 +402,11 @@ void Widget::on_share_3_clicked()
 
 void Widget::comeBackToPrev(QWidget *close)
 {
-
+    // Get the position of the window to be closed
     QPoint currentPos = close->pos();
     int x = currentPos.x();
     int y = currentPos.y();
+    // Move the current window to the same position as the closing window
     this->move(x, y);
     close->close();
     this->show();
@@ -430,44 +421,41 @@ void Widget::post_url(QString url)
     QSize currentPageSize = this->size();
     int x = currentPos.x();
     int y = currentPos.y();
-    connect(this,SIGNAL(video_url(QString ,QPalette ,QSize,int,int)),videoWidget,SLOT(SetResource(QString,QPalette ,QSize,int,int)));
-    connect(videoWidget,SIGNAL(back(QWidget*)),this,SLOT(comeBackToPrev(QWidget*)));
-    emit video_url(url,currentPal,currentPageSize,x,y);
+    // Establish a signal-slot connection to pass the video URL to videoWidget
+    connect(this, SIGNAL(video_url(QString, QPalette, QSize, int, int)), videoWidget, SLOT(SetResource(QString, QPalette, QSize, int, int)));
+    // Establish a signal-slot connection to handle the back operation
+    connect(videoWidget, SIGNAL(back(QWidget*)), this, SLOT(comeBackToPrev(QWidget*)));
+    // Send the video_url signal to pass the URL and window parameters
+    emit video_url(url, currentPal, currentPageSize, x, y);
 }
 
 void Widget::handleClick()
 {
     this->hide();
-
 }
 
-
 void Widget::writeXmlToFile() {
-    QDir cover(QFileInfo(cover_path+"1").absoluteDir());
-    QDir vdo(QFileInfo(video_path+"1").absoluteDir());
-//    qDebug()<<QFileInfo("./source/img/1").absoluteDir();
-    if (!cover.exists()){
+    QDir cover(QFileInfo(cover_path + "1").absoluteDir());
+    QDir vdo(QFileInfo(video_path + "1").absoluteDir());
+    if (!cover.exists()) {
         cover.mkpath(".");
-//        qDebug()<<tem;
     }
 
-    if (!vdo.exists()){
+    if (!vdo.exists()) {
         vdo.mkpath(".");
-        //        qDebug()<<tem;
     }
 
-    QFile file("./source/data.xml"); // 替换为你想要保存的文件路径
+    QFile file("./source/data.xml"); // Replace with the file path you want to save to
 
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        // 文件打开失败，处理错误
-        qDebug() << "文件打开失败";
+        // File opening failed, handle the error
+        qDebug() << "Failed to open the file";
         return;
     }
 
-    qDebug() << "File exist, performing the operation...";
+    qDebug() << "The file already exists, performing the operation...";
     QXmlStreamWriter xmlWriter(&file);
-    xmlWriter.setAutoFormatting(true); // Set automatic formatting for easier reading
-
+    xmlWriter.setAutoFormatting(true); // Set auto-formatting for easier readability
 
     xmlWriter.writeStartDocument();
     xmlWriter.writeStartElement("mediaItems");
@@ -484,6 +472,5 @@ void Widget::writeXmlToFile() {
     xmlWriter.writeEndDocument();
 
     file.close();
-    qDebug() << "Write to the file sucssessfully, performing the operation...";
-
+    qDebug() << "Successfully wrote to the file, performing the operation...";
 }

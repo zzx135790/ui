@@ -29,8 +29,8 @@ void buttonWidget::slot_voice_button_clicked(){
     emit voice_button_clicked(voice_data);
 }
 
-void buttonWidget::slot_paly_button_clicked(){
-    emit paly_button_clicked();
+void buttonWidget::slot_play_button_clicked(){
+    emit play_button_clicked();
 }
 
 void buttonWidget::slot_pause_button_clicked(){
