@@ -30,6 +30,7 @@ void PlayerWidget::returnclick(){
     multiPlayer->stop();
     delete multiPlayer;
     multiPlayer = new QMediaPlayer;
+    connect(multiPlayer, SIGNAL(durationChanged(qint64)), this, SLOT(getduration(qint64)));
     multiPlayer->setPlaybackRate(1.0);
     multiPlayer->setVideoOutput(videoWidget);
     multiPlayer->setVolume(50);

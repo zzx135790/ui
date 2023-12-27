@@ -97,7 +97,7 @@ void buttonWidget::slot_speed_valueChanged(){
 }
 
 void buttonWidget::slot_return_click(){
-    playStatus = 1;
+    playStatus = 0;
     ButtonStyleSet(play_button,":/button/icon/pause.png");
 }
 

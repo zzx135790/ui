@@ -21,6 +21,7 @@ PlayerWidget::PlayerWidget(QWidget *parent): QWidget(parent), currentFormattedTi
     videoWidget = new QVideoWidget(this);
     btnWidget= new buttonWidget(this);
     return_btn = new QPushButton();
+    share_btn = new QPushButton();
 
     multiPlayer->setPlaybackRate(1.0);
     multiPlayer->setVideoOutput(videoWidget);
@@ -33,7 +34,8 @@ PlayerWidget::PlayerWidget(QWidget *parent): QWidget(parent), currentFormattedTi
     hlayout->addWidget(totalTime_label,1);
 
     toplayout->addWidget(return_btn,1);
-    toplayout->addWidget(spacer,9);
+    toplayout->addWidget(spacer,8);
+    toplayout->addWidget(share_btn,1);
 
     vlayout->addLayout(toplayout);
     vlayout->addWidget(videoWidget, 8);
@@ -87,9 +89,12 @@ void PlayerWidget::Init()
 
     playerTime_label = new QLabel("00:00");
     playerTime_label->setStyleSheet("color: white;");
+    playerTime_label->setAlignment(Qt::AlignCenter);
     totalTime_label = new QLabel("00:00");
     totalTime_label->setStyleSheet("color: white;");
+    totalTime_label->setAlignment(Qt::AlignCenter);
     btnWidget->ButtonStyleSet(return_btn,":/button/icon/return.png");
+    btnWidget->ButtonStyleSet(share_btn,":/icon/upload.png");
     connect(return_btn, SIGNAL(clicked()),btnWidget,SLOT(slot_return_click()));
     connect(return_btn, SIGNAL(clicked()),this,SLOT(returnclick()));
     connect(btnWidget, SIGNAL(voice_button_clicked(int)),this,SLOT(voiceclick(int)));

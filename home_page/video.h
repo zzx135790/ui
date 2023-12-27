@@ -25,7 +25,7 @@ class PlayerWidget : public QWidget
     QLabel* playerTime_label;
     QLabel* totalTime_label;
     QPushButton *return_btn;
-
+    QPushButton *share_btn;
     QString totalFormattedTime;
     QString currentFormattedTime;
 
